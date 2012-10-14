@@ -2,4 +2,4 @@ mysql_rootpw,123456
 mysql_trac_pw,123456
 ldap_manager_pw,123456
 ldap_anon_user_pw,123456
-ldap_anon_user_ssha_pwd,{SSHA}1NJFqzohn1w4jH1sb+B2CWbgqirrleQ3
+ldap_anon_user_ssha_pw,{SSHA}1NJFqzohn1w4jH1sb+B2CWbgqirrleQ3
