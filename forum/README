@@ -1,0 +1,7 @@
+Forum configuration: common.csv contains details regarding the sql connection string, specifically the keys phpbb_sql_user, phpbb_sql_pw. The database and config.php file are automatically configured by puppet.
+
+The actual phpbb installation process is utterly impossible to script (unless you want to fire POST requests out of your eyes). So instead, in this dir 'forum_init_config.mysql' contains the initial database that phpbb creates when you configure it. To install it, as root,
+
+mysql new_dbname < forum_init_config.mysql
+
+The admin username is 'admin', password 123456. To change this in the sql dump, see the "INSERT INTO `phpbb_users` line. The password can be various formats, but a hex md5sum is valid.
