@@ -10,3 +10,5 @@ ide_cookie_key,ptDx0VR4dN0ZDKZdqF4zzlF7DI6XWDZRDP0mXLsPdVw=
 ide_ldap_user_uid,ide
 ide_ldap_user_pw,123456
 ide_ldap_user_ssha_pw,{SSHA}1NJFqzohn1w4jH1sb+B2CWbgqirrleQ3
+piwik_sql_user,piwik_user
+piwik_sql_pw,123456
