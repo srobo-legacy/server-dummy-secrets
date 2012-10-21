@@ -12,3 +12,6 @@ ide_ldap_user_pw,123456
 ide_ldap_user_ssha_pw,{SSHA}1NJFqzohn1w4jH1sb+B2CWbgqirrleQ3
 piwik_sql_user,piwik_user
 piwik_sql_pw,123456
+piwik_admin_user,admin
+piwik_admin_md5_pw,e10adc3949ba59abbe56e057f20f883e
+piwik_admin_email,info@studentrobotics.org
