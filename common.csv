@@ -15,3 +15,6 @@ piwik_sql_pw,123456
 piwik_admin_user,admin
 piwik_admin_md5_pw,e10adc3949ba59abbe56e057f20f883e
 piwik_admin_email,info@studentrobotics.org
+www_hostspec,cringe:80
+www_hostname,cringe
+ssl_site_url,https://cringe/
