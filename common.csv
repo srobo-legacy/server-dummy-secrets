@@ -18,3 +18,4 @@ piwik_admin_email,info@studentrobotics.org
 www_hostspec,cringe:80
 www_hostname,cringe
 ssl_site_url,https://cringe/
+ssl_hostspec,cringe:443
