@@ -1,0 +1,830 @@
+-- MySQL dump 10.13  Distrib 5.5.28, for Linux (i686)
+--
+-- Host: localhost    Database: reviewdb
+-- ------------------------------------------------------
+-- Server version	5.5.28
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `account_diff_preferences`
+--
+
+DROP TABLE IF EXISTS `account_diff_preferences`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `account_diff_preferences` (
+  `ignore_whitespace` char(1) NOT NULL DEFAULT '',
+  `tab_size` int(11) NOT NULL DEFAULT '0',
+  `line_length` int(11) NOT NULL DEFAULT '0',
+  `syntax_highlighting` char(1) NOT NULL DEFAULT 'N',
+  `show_whitespace_errors` char(1) NOT NULL DEFAULT 'N',
+  `intraline_difference` char(1) NOT NULL DEFAULT 'N',
+  `show_tabs` char(1) NOT NULL DEFAULT 'N',
+  `context` smallint(6) NOT NULL DEFAULT '0',
+  `skip_deleted` char(1) NOT NULL DEFAULT 'N',
+  `skip_uncommented` char(1) NOT NULL DEFAULT 'N',
+  `expand_all_comments` char(1) NOT NULL DEFAULT 'N',
+  `retain_header` char(1) NOT NULL DEFAULT 'N',
+  `manual_review` char(1) NOT NULL DEFAULT 'N',
+  `show_line_endings` char(1) NOT NULL DEFAULT 'N',
+  `id` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `account_diff_preferences`
+--
+
+LOCK TABLES `account_diff_preferences` WRITE;
+/*!40000 ALTER TABLE `account_diff_preferences` DISABLE KEYS */;
+/*!40000 ALTER TABLE `account_diff_preferences` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `account_external_ids`
+--
+
+DROP TABLE IF EXISTS `account_external_ids`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `account_external_ids` (
+  `account_id` int(11) NOT NULL DEFAULT '0',
+  `email_address` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `external_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  PRIMARY KEY (`external_id`),
+  KEY `account_external_ids_byAccount` (`account_id`),
+  KEY `account_external_ids_byEmail` (`email_address`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `account_external_ids`
+--
+
+LOCK TABLES `account_external_ids` WRITE;
+/*!40000 ALTER TABLE `account_external_ids` DISABLE KEYS */;
+/*!40000 ALTER TABLE `account_external_ids` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `account_group_id`
+--
+
+DROP TABLE IF EXISTS `account_group_id`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `account_group_id` (
+  `s` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  UNIQUE KEY `s` (`s`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `account_group_id`
+--
+
+LOCK TABLES `account_group_id` WRITE;
+/*!40000 ALTER TABLE `account_group_id` DISABLE KEYS */;
+INSERT INTO `account_group_id` VALUES (1),(2),(3),(4),(5);
+/*!40000 ALTER TABLE `account_group_id` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `account_group_includes`
+--
+
+DROP TABLE IF EXISTS `account_group_includes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `account_group_includes` (
+  `group_id` int(11) NOT NULL DEFAULT '0',
+  `include_id` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`group_id`,`include_id`),
+  KEY `account_group_includes_byInclude` (`include_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `account_group_includes`
+--
+
+LOCK TABLES `account_group_includes` WRITE;
+/*!40000 ALTER TABLE `account_group_includes` DISABLE KEYS */;
+/*!40000 ALTER TABLE `account_group_includes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `account_group_includes_audit`
+--
+
+DROP TABLE IF EXISTS `account_group_includes_audit`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `account_group_includes_audit` (
+  `added_by` int(11) NOT NULL DEFAULT '0',
+  `removed_by` int(11) DEFAULT NULL,
+  `removed_on` timestamp NULL DEFAULT NULL,
+  `group_id` int(11) NOT NULL DEFAULT '0',
+  `include_id` int(11) NOT NULL DEFAULT '0',
+  `added_on` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`group_id`,`include_id`,`added_on`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `account_group_includes_audit`
+--
+
+LOCK TABLES `account_group_includes_audit` WRITE;
+/*!40000 ALTER TABLE `account_group_includes_audit` DISABLE KEYS */;
+/*!40000 ALTER TABLE `account_group_includes_audit` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `account_group_members`
+--
+
+DROP TABLE IF EXISTS `account_group_members`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `account_group_members` (
+  `account_id` int(11) NOT NULL DEFAULT '0',
+  `group_id` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`account_id`,`group_id`),
+  KEY `account_group_members_byGroup` (`group_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `account_group_members`
+--
+
+LOCK TABLES `account_group_members` WRITE;
+/*!40000 ALTER TABLE `account_group_members` DISABLE KEYS */;
+/*!40000 ALTER TABLE `account_group_members` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `account_group_members_audit`
+--
+
+DROP TABLE IF EXISTS `account_group_members_audit`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `account_group_members_audit` (
+  `added_by` int(11) NOT NULL DEFAULT '0',
+  `removed_by` int(11) DEFAULT NULL,
+  `removed_on` timestamp NULL DEFAULT NULL,
+  `account_id` int(11) NOT NULL DEFAULT '0',
+  `group_id` int(11) NOT NULL DEFAULT '0',
+  `added_on` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`account_id`,`group_id`,`added_on`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `account_group_members_audit`
+--
+
+LOCK TABLES `account_group_members_audit` WRITE;
+/*!40000 ALTER TABLE `account_group_members_audit` DISABLE KEYS */;
+/*!40000 ALTER TABLE `account_group_members_audit` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `account_group_names`
+--
+
+DROP TABLE IF EXISTS `account_group_names`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `account_group_names` (
+  `group_id` int(11) NOT NULL DEFAULT '0',
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  PRIMARY KEY (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `account_group_names`
+--
+
+LOCK TABLES `account_group_names` WRITE;
+/*!40000 ALTER TABLE `account_group_names` DISABLE KEYS */;
+INSERT INTO `account_group_names` VALUES (1,'Administrators'),(2,'Anonymous Users'),(4,'Non-Interactive Users'),(5,'Project Owners'),(3,'Registered Users');
+/*!40000 ALTER TABLE `account_group_names` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `account_groups`
+--
+
+DROP TABLE IF EXISTS `account_groups`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `account_groups` (
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `description` text,
+  `group_type` varchar(8) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `visible_to_all` char(1) NOT NULL DEFAULT 'N',
+  `group_uuid` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `owner_group_uuid` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `group_id` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`group_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `account_groups`
+--
+
+LOCK TABLES `account_groups` WRITE;
+/*!40000 ALTER TABLE `account_groups` DISABLE KEYS */;
+INSERT INTO `account_groups` VALUES ('Administrators','Gerrit Site Administrators','INTERNAL','N','fb5dafc8c021470b1afb90de58ae0a5a3e984745','fb5dafc8c021470b1afb90de58ae0a5a3e984745',1),('Anonymous Users','Any user, signed-in or not','SYSTEM','N','global:Anonymous-Users','fb5dafc8c021470b1afb90de58ae0a5a3e984745',2),('Registered Users','Any signed-in user','SYSTEM','N','global:Registered-Users','fb5dafc8c021470b1afb90de58ae0a5a3e984745',3),('Non-Interactive Users','Users who perform batch actions on Gerrit','INTERNAL','N','d7604a9aa8a330f795b95cc7907574f62d4acd0e','fb5dafc8c021470b1afb90de58ae0a5a3e984745',4),('Project Owners','Any owner of the project','SYSTEM','N','global:Project-Owners','fb5dafc8c021470b1afb90de58ae0a5a3e984745',5);
+/*!40000 ALTER TABLE `account_groups` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `account_id`
+--
+
+DROP TABLE IF EXISTS `account_id`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `account_id` (
+  `s` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  UNIQUE KEY `s` (`s`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `account_id`
+--
+
+LOCK TABLES `account_id` WRITE;
+/*!40000 ALTER TABLE `account_id` DISABLE KEYS */;
+/*!40000 ALTER TABLE `account_id` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `account_patch_reviews`
+--
+
+DROP TABLE IF EXISTS `account_patch_reviews`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `account_patch_reviews` (
+  `account_id` int(11) NOT NULL DEFAULT '0',
+  `change_id` int(11) NOT NULL DEFAULT '0',
+  `patch_set_id` int(11) NOT NULL DEFAULT '0',
+  `file_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  PRIMARY KEY (`account_id`,`change_id`,`patch_set_id`,`file_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `account_patch_reviews`
+--
+
+LOCK TABLES `account_patch_reviews` WRITE;
+/*!40000 ALTER TABLE `account_patch_reviews` DISABLE KEYS */;
+/*!40000 ALTER TABLE `account_patch_reviews` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `account_project_watches`
+--
+
+DROP TABLE IF EXISTS `account_project_watches`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `account_project_watches` (
+  `notify_new_changes` char(1) NOT NULL DEFAULT 'N',
+  `notify_all_comments` char(1) NOT NULL DEFAULT 'N',
+  `notify_submitted_changes` char(1) NOT NULL DEFAULT 'N',
+  `account_id` int(11) NOT NULL DEFAULT '0',
+  `project_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `filter` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  PRIMARY KEY (`account_id`,`project_name`,`filter`),
+  KEY `account_project_watches_byProject` (`project_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `account_project_watches`
+--
+
+LOCK TABLES `account_project_watches` WRITE;
+/*!40000 ALTER TABLE `account_project_watches` DISABLE KEYS */;
+/*!40000 ALTER TABLE `account_project_watches` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `account_ssh_keys`
+--
+
+DROP TABLE IF EXISTS `account_ssh_keys`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `account_ssh_keys` (
+  `ssh_public_key` text NOT NULL,
+  `valid` char(1) NOT NULL DEFAULT 'N',
+  `account_id` int(11) NOT NULL DEFAULT '0',
+  `seq` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`account_id`,`seq`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `account_ssh_keys`
+--
+
+LOCK TABLES `account_ssh_keys` WRITE;
+/*!40000 ALTER TABLE `account_ssh_keys` DISABLE KEYS */;
+/*!40000 ALTER TABLE `account_ssh_keys` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `accounts`
+--
+
+DROP TABLE IF EXISTS `accounts`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `accounts` (
+  `registered_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `full_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `preferred_email` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `contact_filed_on` timestamp NULL DEFAULT NULL,
+  `maximum_page_size` smallint(6) NOT NULL DEFAULT '0',
+  `show_site_header` char(1) NOT NULL DEFAULT 'N',
+  `use_flash_clipboard` char(1) NOT NULL DEFAULT 'N',
+  `download_url` varchar(20) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `download_command` varchar(20) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `copy_self_on_email` char(1) NOT NULL DEFAULT 'N',
+  `date_format` varchar(10) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `time_format` varchar(10) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `reverse_patch_set_order` char(1) NOT NULL DEFAULT 'N',
+  `show_username_in_review_category` char(1) NOT NULL DEFAULT 'N',
+  `inactive` char(1) NOT NULL DEFAULT 'N',
+  `account_id` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`account_id`),
+  KEY `accounts_byPreferredEmail` (`preferred_email`),
+  KEY `accounts_byFullName` (`full_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `accounts`
+--
+
+LOCK TABLES `accounts` WRITE;
+/*!40000 ALTER TABLE `accounts` DISABLE KEYS */;
+/*!40000 ALTER TABLE `accounts` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `approval_categories`
+--
+
+DROP TABLE IF EXISTS `approval_categories`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `approval_categories` (
+  `name` varchar(20) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `abbreviated_name` varchar(4) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `position` smallint(6) NOT NULL DEFAULT '0',
+  `function_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `copy_min_score` char(1) NOT NULL DEFAULT 'N',
+  `category_id` varchar(4) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  PRIMARY KEY (`category_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `approval_categories`
+--
+
+LOCK TABLES `approval_categories` WRITE;
+/*!40000 ALTER TABLE `approval_categories` DISABLE KEYS */;
+INSERT INTO `approval_categories` VALUES ('Code Review','R',1,'MaxWithBlock','Y','CRVW'),('Verified','V',0,'MaxWithBlock','N','VRIF');
+/*!40000 ALTER TABLE `approval_categories` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `approval_category_values`
+--
+
+DROP TABLE IF EXISTS `approval_category_values`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `approval_category_values` (
+  `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `category_id` varchar(4) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `value` smallint(6) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`category_id`,`value`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `approval_category_values`
+--
+
+LOCK TABLES `approval_category_values` WRITE;
+/*!40000 ALTER TABLE `approval_category_values` DISABLE KEYS */;
+INSERT INTO `approval_category_values` VALUES ('Do not submit','CRVW',-2),('I would prefer that you didn\'t submit this','CRVW',-1),('No score','CRVW',0),('Looks good to me, but someone else must approve','CRVW',1),('Looks good to me, approved','CRVW',2),('Fails','VRIF',-1),('No score','VRIF',0),('Verified','VRIF',1);
+/*!40000 ALTER TABLE `approval_category_values` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `change_id`
+--
+
+DROP TABLE IF EXISTS `change_id`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `change_id` (
+  `s` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  UNIQUE KEY `s` (`s`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `change_id`
+--
+
+LOCK TABLES `change_id` WRITE;
+/*!40000 ALTER TABLE `change_id` DISABLE KEYS */;
+/*!40000 ALTER TABLE `change_id` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `change_message_id`
+--
+
+DROP TABLE IF EXISTS `change_message_id`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `change_message_id` (
+  `s` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  UNIQUE KEY `s` (`s`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `change_message_id`
+--
+
+LOCK TABLES `change_message_id` WRITE;
+/*!40000 ALTER TABLE `change_message_id` DISABLE KEYS */;
+/*!40000 ALTER TABLE `change_message_id` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `change_messages`
+--
+
+DROP TABLE IF EXISTS `change_messages`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `change_messages` (
+  `author_id` int(11) DEFAULT NULL,
+  `written_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `message` text,
+  `patchset_change_id` int(11) DEFAULT NULL,
+  `patchset_patch_set_id` int(11) DEFAULT NULL,
+  `change_id` int(11) NOT NULL DEFAULT '0',
+  `uuid` varchar(40) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  PRIMARY KEY (`change_id`,`uuid`),
+  KEY `change_messages_byPatchset` (`patchset_change_id`,`patchset_patch_set_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `change_messages`
+--
+
+LOCK TABLES `change_messages` WRITE;
+/*!40000 ALTER TABLE `change_messages` DISABLE KEYS */;
+/*!40000 ALTER TABLE `change_messages` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `changes`
+--
+
+DROP TABLE IF EXISTS `changes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `changes` (
+  `change_key` varchar(60) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `last_updated_on` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `sort_key` varchar(16) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `owner_account_id` int(11) NOT NULL DEFAULT '0',
+  `dest_project_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `dest_branch_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `open` char(1) NOT NULL DEFAULT 'N',
+  `status` char(1) NOT NULL DEFAULT '',
+  `nbr_patch_sets` int(11) NOT NULL DEFAULT '0',
+  `current_patch_set_id` int(11) NOT NULL DEFAULT '0',
+  `subject` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `topic` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `last_sha1_merge_tested` varchar(40) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `mergeable` char(1) NOT NULL DEFAULT 'N',
+  `row_version` int(11) NOT NULL DEFAULT '0',
+  `change_id` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`change_id`),
+  KEY `changes_byOwnerOpen` (`open`,`owner_account_id`,`created_on`,`change_id`),
+  KEY `changes_byOwnerClosed` (`open`,`owner_account_id`,`last_updated_on`),
+  KEY `changes_submitted` (`status`,`dest_project_name`,`dest_branch_name`,`last_updated_on`),
+  KEY `changes_allOpen` (`open`,`sort_key`),
+  KEY `changes_byProjectOpen` (`open`,`dest_project_name`,`sort_key`),
+  KEY `changes_byProject` (`dest_project_name`),
+  KEY `changes_allClosed` (`open`,`status`,`sort_key`),
+  KEY `changes_byBranchClosed` (`status`,`dest_project_name`,`dest_branch_name`,`sort_key`),
+  KEY `changes_key` (`change_key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `changes`
+--
+
+LOCK TABLES `changes` WRITE;
+/*!40000 ALTER TABLE `changes` DISABLE KEYS */;
+/*!40000 ALTER TABLE `changes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `patch_comments`
+--
+
+DROP TABLE IF EXISTS `patch_comments`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `patch_comments` (
+  `line_nbr` int(11) NOT NULL DEFAULT '0',
+  `author_id` int(11) NOT NULL DEFAULT '0',
+  `written_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `status` char(1) NOT NULL DEFAULT '',
+  `side` smallint(6) NOT NULL DEFAULT '0',
+  `message` text,
+  `parent_uuid` varchar(40) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `change_id` int(11) NOT NULL DEFAULT '0',
+  `patch_set_id` int(11) NOT NULL DEFAULT '0',
+  `file_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `uuid` varchar(40) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  PRIMARY KEY (`change_id`,`patch_set_id`,`file_name`,`uuid`),
+  KEY `patch_comment_drafts` (`status`,`author_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `patch_comments`
+--
+
+LOCK TABLES `patch_comments` WRITE;
+/*!40000 ALTER TABLE `patch_comments` DISABLE KEYS */;
+/*!40000 ALTER TABLE `patch_comments` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `patch_set_ancestors`
+--
+
+DROP TABLE IF EXISTS `patch_set_ancestors`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `patch_set_ancestors` (
+  `ancestor_revision` varchar(40) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `change_id` int(11) NOT NULL DEFAULT '0',
+  `patch_set_id` int(11) NOT NULL DEFAULT '0',
+  `position` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`change_id`,`patch_set_id`,`position`),
+  KEY `patch_set_ancestors_desc` (`ancestor_revision`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `patch_set_ancestors`
+--
+
+LOCK TABLES `patch_set_ancestors` WRITE;
+/*!40000 ALTER TABLE `patch_set_ancestors` DISABLE KEYS */;
+/*!40000 ALTER TABLE `patch_set_ancestors` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `patch_set_approvals`
+--
+
+DROP TABLE IF EXISTS `patch_set_approvals`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `patch_set_approvals` (
+  `value` smallint(6) NOT NULL DEFAULT '0',
+  `granted` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `change_open` char(1) NOT NULL DEFAULT 'N',
+  `change_sort_key` varchar(16) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `change_id` int(11) NOT NULL DEFAULT '0',
+  `patch_set_id` int(11) NOT NULL DEFAULT '0',
+  `account_id` int(11) NOT NULL DEFAULT '0',
+  `category_id` varchar(4) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  PRIMARY KEY (`change_id`,`patch_set_id`,`account_id`,`category_id`),
+  KEY `patch_set_approvals_openByUser` (`change_open`,`account_id`),
+  KEY `patch_set_approvals_closedByUser` (`change_open`,`account_id`,`change_sort_key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `patch_set_approvals`
+--
+
+LOCK TABLES `patch_set_approvals` WRITE;
+/*!40000 ALTER TABLE `patch_set_approvals` DISABLE KEYS */;
+/*!40000 ALTER TABLE `patch_set_approvals` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `patch_sets`
+--
+
+DROP TABLE IF EXISTS `patch_sets`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `patch_sets` (
+  `revision` varchar(40) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `uploader_account_id` int(11) NOT NULL DEFAULT '0',
+  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `draft` char(1) NOT NULL DEFAULT 'N',
+  `change_id` int(11) NOT NULL DEFAULT '0',
+  `patch_set_id` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`change_id`,`patch_set_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `patch_sets`
+--
+
+LOCK TABLES `patch_sets` WRITE;
+/*!40000 ALTER TABLE `patch_sets` DISABLE KEYS */;
+/*!40000 ALTER TABLE `patch_sets` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `schema_version`
+--
+
+DROP TABLE IF EXISTS `schema_version`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `schema_version` (
+  `version_nbr` int(11) NOT NULL DEFAULT '0',
+  `singleton` varchar(1) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  PRIMARY KEY (`singleton`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `schema_version`
+--
+
+LOCK TABLES `schema_version` WRITE;
+/*!40000 ALTER TABLE `schema_version` DISABLE KEYS */;
+INSERT INTO `schema_version` VALUES (73,'X');
+/*!40000 ALTER TABLE `schema_version` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `starred_changes`
+--
+
+DROP TABLE IF EXISTS `starred_changes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `starred_changes` (
+  `account_id` int(11) NOT NULL DEFAULT '0',
+  `change_id` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`account_id`,`change_id`),
+  KEY `starred_changes_byChange` (`change_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `starred_changes`
+--
+
+LOCK TABLES `starred_changes` WRITE;
+/*!40000 ALTER TABLE `starred_changes` DISABLE KEYS */;
+/*!40000 ALTER TABLE `starred_changes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `submodule_subscriptions`
+--
+
+DROP TABLE IF EXISTS `submodule_subscriptions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `submodule_subscriptions` (
+  `submodule_project_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `submodule_branch_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `super_project_project_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `super_project_branch_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `submodule_path` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  PRIMARY KEY (`super_project_project_name`,`super_project_branch_name`,`submodule_path`),
+  KEY `submodule_subscription_access_bySubscription` (`submodule_project_name`,`submodule_branch_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `submodule_subscriptions`
+--
+
+LOCK TABLES `submodule_subscriptions` WRITE;
+/*!40000 ALTER TABLE `submodule_subscriptions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `submodule_subscriptions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `system_config`
+--
+
+DROP TABLE IF EXISTS `system_config`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `system_config` (
+  `site_path` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `register_email_private_key` varchar(36) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `admin_group_id` int(11) DEFAULT NULL,
+  `admin_group_uuid` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `anonymous_group_id` int(11) DEFAULT NULL,
+  `registered_group_id` int(11) DEFAULT NULL,
+  `wild_project_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `owner_group_id` int(11) DEFAULT NULL,
+  `batch_users_group_id` int(11) DEFAULT NULL,
+  `batch_users_group_uuid` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `singleton` varchar(1) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  PRIMARY KEY (`singleton`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `system_config`
+--
+
+LOCK TABLES `system_config` WRITE;
+/*!40000 ALTER TABLE `system_config` DISABLE KEYS */;
+INSERT INTO `system_config` VALUES ('/home/gerrit/srdata',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'X');
+/*!40000 ALTER TABLE `system_config` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tracking_ids`
+--
+
+DROP TABLE IF EXISTS `tracking_ids`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tracking_ids` (
+  `change_id` int(11) NOT NULL DEFAULT '0',
+  `tracking_key` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `tracking_system` varchar(10) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  PRIMARY KEY (`change_id`,`tracking_key`,`tracking_system`),
+  KEY `tracking_ids_byTrkKey` (`tracking_key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tracking_ids`
+--
+
+LOCK TABLES `tracking_ids` WRITE;
+/*!40000 ALTER TABLE `tracking_ids` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tracking_ids` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2012-11-07 16:44:28
