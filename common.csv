@@ -20,3 +20,4 @@ www_hostname,cringe
 ssl_site_url,https://cringe/
 ssl_hostspec,cringe:443
 gerrit_db_pw,123456
+backup_keys,jmorse@studentrobotics.org
