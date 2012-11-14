@@ -18,4 +18,8 @@ piwik_admin_email,info@studentrobotics.org
 www_base_hostname,cringe
 www_canonical_hostname,cringe
 gerrit_db_pw,123456
+gerrit_email_key,ponies
+gerrit_email_smtp,ponies
+gerrit_email_user,ponies
+gerrit_email_pw,ponies
 backup_keys,jmorse@studentrobotics.org
