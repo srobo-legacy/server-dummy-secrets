@@ -118,28 +118,28 @@ memberUid: student_coll2_2
 description: students group
 gidNumber: 3003
 
-dn: cn=team1,ou=groups,o=sr
+dn: cn=team-ABC,ou=groups,o=sr
 objectClass: posixGroup
-cn: team1
+cn: team-ABC
 memberUid: teacher_coll1
 memberUid: student_coll1_1
-description: team1 group
+description: team-ABC group
 gidNumber: 3004
 
-dn: cn=team2,ou=groups,o=sr
+dn: cn=team-DFE,ou=groups,o=sr
 objectClass: posixGroup
-cn: team2
+cn: team-DFE
 memberUid: teacher_coll1
 memberUid: student_coll1_1
-description: team2 group
+description: team-DFE group
 gidNumber: 3005
 
-dn: cn=team3,ou=groups,o=sr
+dn: cn=team-QWZ,ou=groups,o=sr
 objectClass: posixGroup
-cn: team3
+cn: team-QWZ
 memberUid: teacher_coll2
 memberUid: student_coll2_1
 memberUid: student_coll2_2
-description: team3 group
+description: team-QWZ group
 gidNumber: 3006
 
