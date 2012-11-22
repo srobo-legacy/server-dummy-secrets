@@ -1,0 +1,8 @@
+Change-Id: Ie6c219d7a8449d9739be656d7f1ea3be6f1fdb15
+Code-Review+2: Jeremy Morse <jeremy.morse@gmail.com>
+Verified+1: Jeremy Morse <jeremy.morse@gmail.com>
+Submitted-by: Jeremy Morse <jeremy.morse@gmail.com>
+Submitted-at: Thu, 22 Nov 2012 18:14:21 +0000
+Reviewed-on: https://www.studentrobotics.org/gerrit/140
+Project: server/dummy-secrets
+Branch: refs/heads/master
