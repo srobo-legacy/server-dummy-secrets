@@ -82,6 +82,20 @@ cn: student4
 mail: sam@sam2518.com
 userPassword:: e1NIQX1NZmNVVlBHSEVQdWxmakFjSWZBMGY0VE84d0E9
 
+dn: uid=bacon,ou=users,o=sr
+uid: bacon
+objectClass: inetOrgPerson
+objectClass: uidObject
+objectClass: posixAccount
+loginShell: /bin/bash
+uidNumber: 2006
+gidNumber: 1999
+sn: bacon
+homeDirectory: /home/bacon
+mail: bacon
+cn: bacon
+userPassword:: e1NIQX1pcjhWdnZOMjRPSWZINTZjUFhSSVBWQVk4OVU9
+
 dn: cn=college-1,ou=groups,o=sr
 objectClass: posixGroup
 cn: college-1
@@ -105,6 +119,7 @@ objectClass: posixGroup
 cn: teachers
 memberUid: teacher_coll1
 memberUid: teacher_coll2
+memberUid: bacon
 description: teachers group
 gidNumber: 3002
 
