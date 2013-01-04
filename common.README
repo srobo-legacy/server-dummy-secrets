@@ -1,0 +1,64 @@
+Here's some documentation for each line in common.csv.
+
+common.csv was originally supposed to hold only secrets, but it's grown since
+then to contain a few important configuration options too.
+
+Name of field                   Description
+================================================================================
+mysql_root_pw			MySQL password for 'root' account. Plaintext.
+mysql_trac_pw			MySQL password for trac's account. Plaintext.
+ldap_manager_pw			Password for the cn=Manager,o=sr account in
+				LDAP, equivalent to the root LDAP account.
+				Plaintext.
+ldap_anon_user_pw		Password for the 'anon LDAP' account. Plaintext.
+ldap_anon_user_ssha_pw		Password for anon account, but in LDAP's
+				internal format for the userPassword attribute.
+				Use 'slappasswd' to generate this value, and
+				ensure it's always sync'd with ldap_anon_user_pw
+shell-users			Deprecated, should be removed
+phpbb_sql_user			Name for phpBB's MySQL account
+phpbb_sql_pw			Password for phpBB's MySQL account. Plaintext.
+ide_cookie_key			Secret key for the IDE to encrypt its cookies
+				with. Takes 256 bits of entropy, encoded in
+				Base64.
+ide_ldap_user_uid		UID attribute for the IDE's LDAP account.
+ide_ldap_user_pw		Password for IDE's LDAP account. Plaintext.
+ide_ldap_user_ssha_pw		Password for IDE's LDAP account, in LDAP
+				internal form. See ldap_anon_user_ssha_pw
+piwik_sql_user			Name for piwik's MySQL account
+piwik_sql_pw			Password for piwik's MySQL account. Plaintext.
+piwik_admin_user		Account name for the 'admin' piwik user, who
+				can log into piwik's web interface and
+				administrate things.
+piwik_admin_md5_pw		Password for piwik's 'admin' user. An MD5,
+				encoded to hexidecimal characters.
+piwik_admin_email		Email address for piwik admin account. No idea
+				where this crops up in piwik, sorry
+www_base_hostname		Base DNS name for the site being hosted, for
+				example 'studentrobotics.org' or
+				'cringe.jmorse.net'. Services and things lower
+				in DNS than this (like ide. or git.) are based
+				on this name.
+www_canonical_hostname		'Canonical' website address, which all website
+				URLs should be based upon, i.e.
+				'www.studentrobotics.org'. Consider this the
+				'proper' name of the website, as opposed to the
+				base DNS name.
+gerrit_db_pw			Password for Gerrit's MySQL account. Plaintext.
+gerrit_email_key		Secret key used by gerrit to authenticate email
+				confirmations. I'm uncertain of the format, but
+				in deployment it appears to be 26 bytes of
+				entropy encoded in base64.
+gerrit_email_smtp		SMTP server for Gerrit to send emails by
+gerrit_email_user		Full (name@domain) email address for Gerrit
+				to send emails as.
+gerrit_email_pw			Password for Gerrit's email account. Plaintext.
+backup_keys			List of OpenPGP user ID's to encrypt backups
+				with. Takes the form of a list of email
+				addresses, comma seperated, all inside a ""
+				quote, i.e. "a@b,c@d,e@f". Better configuration
+				approach would be welcome.
+				CAUTION: backups will fail if a user is listed
+				here without additional signing, see puppet's
+				backup.pp
+srweb_live_site			Deprecated, should be removed
