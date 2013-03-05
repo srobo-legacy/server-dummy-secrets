@@ -145,7 +145,7 @@ dn: cn=team-DFE,ou=groups,o=sr
 objectClass: posixGroup
 cn: team-DFE
 memberUid: teacher_coll1
-memberUid: student_coll1_1
+memberUid: student_coll1_2
 description: team-DFE group
 gidNumber: 3005
 
