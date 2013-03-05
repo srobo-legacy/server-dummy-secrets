@@ -12,6 +12,28 @@ mail: teacher@teacher.com
 cn: teacher
 userPassword:: e1NIQX04UmRYNjk1ZktGMDZuRXJwdy9KTHlSZk14Wnc9
 
+dn: uid=blueshirt,ou=users,o=sr
+uid: blueshirt
+objectClass: inetOrgPerson
+objectClass: uidObject
+objectClass: posixAccount
+loginShell: /bin/bash
+uidNumber: 2007
+gidNumber: 1999
+sn: shirt
+homeDirectory: /home/blueshirt
+mail: blue-shirt@example.com
+cn: blue
+structuralObjectClass: inetOrgPerson
+entryUUID: 4e4af17a-1a09-1032-988a-d3a165ae216d
+creatorsName: cn=Manager,o=sr
+createTimestamp: 20130305175318Z
+userPassword:: e1NIQX1KaWNITFBKcyswbXhpQUE4d2xBZEVxbXFpaTQ9
+entryCSN: 20130305175325.798763Z#000000#000#000000
+modifiersName: cn=Manager,o=sr
+modifyTimestamp: 20130305175325Z
+
+
 dn: uid=teacher_coll2,ou=users,o=sr
 uid: teacher_coll2
 objectClass: inetOrgPerson
@@ -158,3 +180,8 @@ memberUid: student_coll2_2
 description: team-QWZ group
 gidNumber: 3006
 
+dn: cn=mentors,ou=groups,o=sr
+objectClass: posixGroup
+cn: mentors
+memberUid: blueshirt
+gidNumber: 2001
