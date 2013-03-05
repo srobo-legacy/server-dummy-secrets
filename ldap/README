@@ -9,3 +9,12 @@ Usernames/Passwords:
 teacher_coll1/facebees
 teacher_coll2/noway
 student_coll1_1/cows
+
+If you want to modify and reapply the ldap backup do these things:
+
+
+* service slapd stop
+* rm /usr/local/var/sr/ldap_installed
+* sudo rm -rf /var/lib/ldap/studentrobotics.org/*
+* service slapd start
+* puppet apply /etc/puppet/manifests/sr-dev.pp
