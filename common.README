@@ -15,6 +15,10 @@ ldap_anon_user_ssha_pw		Password for anon account, but in LDAP's
 				internal format for the userPassword attribute.
 				Use 'slappasswd' to generate this value, and
 				ensure it's always sync'd with ldap_anon_user_pw
+ldap_ticket_user_pw		Password for the 'anon LDAP' account. Plaintext.
+ldap_ticket_user_ssha_pw	Password for anon account, but in LDAP's
+				internal format for the userPassword attribute.
+				See ldap_anon_user_ssha_pw.
 shell-users			Deprecated, should be removed
 phpbb_sql_user			Name for phpBB's MySQL account
 phpbb_sql_pw			Password for phpBB's MySQL account. Plaintext.
