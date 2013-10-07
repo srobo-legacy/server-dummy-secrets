@@ -27,3 +27,7 @@ gerrit_email_smtp,ponies
 gerrit_email_user,ponies
 gerrit_email_pw,ponies
 backup_keys,jmorse@studentrobotics.org
+nemesis_mail_smtp,ponies
+nemesis_mail_user,ponies
+nemesis_mail_pw,ponies
+nemesis_mail_from,ponies
