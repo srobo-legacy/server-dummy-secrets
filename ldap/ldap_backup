@@ -6246,6 +6246,48 @@ homeDirectory: /home/ace_mn1
 mail: hemispherically@srobo.org
 cn: messiest
 
+dn: uid=blueshirt,ou=users,o=sr
+uid: blueshirt
+objectClass: inetOrgPerson
+objectClass: uidObject
+objectClass: posixAccount
+loginShell: /bin/bash
+uidNumber: 2420
+gidNumber: 1999
+sn: Shirt
+homeDirectory: /home/blueshirt
+mail: blueshirt@example.com
+cn: Blue
+userPassword:: e1NIQX1KaWNITFBKcyswbXhpQUE4d2xBZEVxbXFpaTQ9
+
+dn: uid=blueshirt2,ou=users,o=sr
+uid: blueshirt
+objectClass: inetOrgPerson
+objectClass: uidObject
+objectClass: posixAccount
+loginShell: /bin/bash
+uidNumber: 2420
+gidNumber: 1999
+sn: Shirt
+homeDirectory: /home/blueshirt
+mail: blueshirt@example.com
+cn: Blue
+userPassword:: e1NIQX1KaWNITFBKcyswbXhpQUE4d2xBZEVxbXFpaTQ9
+
+dn: uid=withdrawn_student,ou=users,o=sr
+uid: withdrawn_student
+objectClass: inetOrgPerson
+objectClass: uidObject
+objectClass: posixAccount
+loginShell: /bin/bash
+uidNumber: 2422
+gidNumber: 1999
+sn: Student
+homeDirectory: /home/withdrawn_student
+cn: Withdrawn
+mail: no-more-taking-part@example.com
+userPassword:: e1NIQX1yaFRIN01PSDM5RllISzl6eXZDa0NTb2pzSFE9
+
 # teachers, groups, sr
 dn: cn=teachers,ou=groups,o=sr
 objectClass: posixGroup
@@ -8300,3 +8342,28 @@ memberUid: ace_lm1
 memberUid: ace_mn1
 description: team-ACE group
 gidNumber: 3116
+
+# mentors, groups, sr
+dn: cn=mentors,ou=groups,o=sr
+objectClass: posixGroup
+cn: mentors
+memberUid: blueshirt
+memberUid: blueshirt2
+description: mentors group
+gidNumber: 3117
+
+# ide-admin, groups, sr
+dn: cn=ide-admin,ou=groups,o=sr
+objectClass: posixGroup
+cn: ide-admin
+memberUid: blueshirt
+description: ide-admin group
+gidNumber: 3118
+
+# withdrawn, groups, sr
+dn: cn=withdrawn,ou=groups,o=sr
+objectClass: posixGroup
+cn: withdrawn
+memberUid: withdrawn_student
+description: withdrawn group
+gidNumber: 3119
