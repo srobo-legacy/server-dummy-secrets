@@ -31,3 +31,5 @@ nemesis_mail_smtp,ponies
 nemesis_mail_user,ponies
 nemesis_mail_pw,ponies
 nemesis_mail_from,ponies
+ldap_mediaconsent_user_pw,123456
+ldap_mediaconsent_user_ssha_pw,{SSHA}1NJFqzohn1w4jH1sb+B2CWbgqirrleQ3

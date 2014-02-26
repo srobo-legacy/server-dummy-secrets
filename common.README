@@ -66,3 +66,7 @@ backup_keys			List of OpenPGP user ID's to encrypt backups
 				here without additional signing, see puppet's
 				backup.pp
 srweb_live_site			Deprecated, should be removed
+ldap_mediaconsent_user_pw       Password for the MCF LDAP account. Plaintext.
+ldap_mediaconsent_user_ssha_pw	Password for ticket account, but in LDAP's
+				internal format for the userPassword attribute.
+				See ldap_anon_user_ssha_pw.
