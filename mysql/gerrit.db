@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.5.28, for Linux (i686)
+-- MySQL dump 10.13  Distrib 5.5.32, for Linux (i686)
 --
 -- Host: localhost    Database: reviewdb
 -- ------------------------------------------------------
--- Server version	5.5.28
+-- Server version	5.5.32
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -79,6 +79,56 @@ LOCK TABLES `account_external_ids` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `account_group_by_id`
+--
+
+DROP TABLE IF EXISTS `account_group_by_id`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `account_group_by_id` (
+  `group_id` int(11) NOT NULL DEFAULT '0',
+  `include_uuid` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  PRIMARY KEY (`group_id`,`include_uuid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `account_group_by_id`
+--
+
+LOCK TABLES `account_group_by_id` WRITE;
+/*!40000 ALTER TABLE `account_group_by_id` DISABLE KEYS */;
+/*!40000 ALTER TABLE `account_group_by_id` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `account_group_by_id_aud`
+--
+
+DROP TABLE IF EXISTS `account_group_by_id_aud`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `account_group_by_id_aud` (
+  `added_by` int(11) NOT NULL DEFAULT '0',
+  `removed_by` int(11) DEFAULT NULL,
+  `removed_on` timestamp NULL DEFAULT NULL,
+  `added_on` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `group_id` int(11) NOT NULL DEFAULT '0',
+  `include_uuid` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  PRIMARY KEY (`added_on`,`group_id`,`include_uuid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `account_group_by_id_aud`
+--
+
+LOCK TABLES `account_group_by_id_aud` WRITE;
+/*!40000 ALTER TABLE `account_group_by_id_aud` DISABLE KEYS */;
+/*!40000 ALTER TABLE `account_group_by_id_aud` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `account_group_id`
 --
 
@@ -99,57 +149,6 @@ LOCK TABLES `account_group_id` WRITE;
 /*!40000 ALTER TABLE `account_group_id` DISABLE KEYS */;
 INSERT INTO `account_group_id` VALUES (1),(2),(3),(4),(5);
 /*!40000 ALTER TABLE `account_group_id` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `account_group_includes`
---
-
-DROP TABLE IF EXISTS `account_group_includes`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `account_group_includes` (
-  `group_id` int(11) NOT NULL DEFAULT '0',
-  `include_id` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`group_id`,`include_id`),
-  KEY `account_group_includes_byInclude` (`include_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `account_group_includes`
---
-
-LOCK TABLES `account_group_includes` WRITE;
-/*!40000 ALTER TABLE `account_group_includes` DISABLE KEYS */;
-/*!40000 ALTER TABLE `account_group_includes` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `account_group_includes_audit`
---
-
-DROP TABLE IF EXISTS `account_group_includes_audit`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `account_group_includes_audit` (
-  `added_by` int(11) NOT NULL DEFAULT '0',
-  `removed_by` int(11) DEFAULT NULL,
-  `removed_on` timestamp NULL DEFAULT NULL,
-  `group_id` int(11) NOT NULL DEFAULT '0',
-  `include_id` int(11) NOT NULL DEFAULT '0',
-  `added_on` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`group_id`,`include_id`,`added_on`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `account_group_includes_audit`
---
-
-LOCK TABLES `account_group_includes_audit` WRITE;
-/*!40000 ALTER TABLE `account_group_includes_audit` DISABLE KEYS */;
-/*!40000 ALTER TABLE `account_group_includes_audit` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -317,8 +316,10 @@ CREATE TABLE `account_project_watches` (
   `account_id` int(11) NOT NULL DEFAULT '0',
   `project_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
   `filter` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `notify_abandoned_changes` char(1) NOT NULL DEFAULT 'N',
+  `notify_new_patch_sets` char(1) NOT NULL DEFAULT 'N',
   PRIMARY KEY (`account_id`,`project_name`,`filter`),
-  KEY `account_project_watches_byProject` (`project_name`)
+  KEY `account_project_watches_byP` (`project_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -377,9 +378,13 @@ CREATE TABLE `accounts` (
   `date_format` varchar(10) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   `time_format` varchar(10) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   `reverse_patch_set_order` char(1) NOT NULL DEFAULT 'N',
-  `show_username_in_review_category` char(1) NOT NULL DEFAULT 'N',
+  `show_user_in_review` char(1) NOT NULL DEFAULT 'N',
   `inactive` char(1) NOT NULL DEFAULT 'N',
   `account_id` int(11) NOT NULL DEFAULT '0',
+  `change_screen` varchar(20) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `comment_visibility_strategy` varchar(20) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `diff_view` varchar(20) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `relative_date_in_change_table` char(1) NOT NULL DEFAULT 'N',
   PRIMARY KEY (`account_id`),
   KEY `accounts_byPreferredEmail` (`preferred_email`),
   KEY `accounts_byFullName` (`full_name`)
@@ -393,59 +398,6 @@ CREATE TABLE `accounts` (
 LOCK TABLES `accounts` WRITE;
 /*!40000 ALTER TABLE `accounts` DISABLE KEYS */;
 /*!40000 ALTER TABLE `accounts` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `approval_categories`
---
-
-DROP TABLE IF EXISTS `approval_categories`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `approval_categories` (
-  `name` varchar(20) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
-  `abbreviated_name` varchar(4) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
-  `position` smallint(6) NOT NULL DEFAULT '0',
-  `function_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
-  `copy_min_score` char(1) NOT NULL DEFAULT 'N',
-  `category_id` varchar(4) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
-  PRIMARY KEY (`category_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `approval_categories`
---
-
-LOCK TABLES `approval_categories` WRITE;
-/*!40000 ALTER TABLE `approval_categories` DISABLE KEYS */;
-INSERT INTO `approval_categories` VALUES ('Code Review','R',1,'MaxWithBlock','Y','CRVW'),('Verified','V',0,'MaxWithBlock','N','VRIF');
-/*!40000 ALTER TABLE `approval_categories` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `approval_category_values`
---
-
-DROP TABLE IF EXISTS `approval_category_values`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `approval_category_values` (
-  `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
-  `category_id` varchar(4) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
-  `value` smallint(6) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`category_id`,`value`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `approval_category_values`
---
-
-LOCK TABLES `approval_category_values` WRITE;
-/*!40000 ALTER TABLE `approval_category_values` DISABLE KEYS */;
-INSERT INTO `approval_category_values` VALUES ('Do not submit','CRVW',-2),('I would prefer that you didn\'t submit this','CRVW',-1),('No score','CRVW',0),('Looks good to me, but someone else must approve','CRVW',1),('Looks good to me, approved','CRVW',2),('Fails','VRIF',-1),('No score','VRIF',0),('Verified','VRIF',1);
-/*!40000 ALTER TABLE `approval_category_values` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -538,7 +490,6 @@ CREATE TABLE `changes` (
   `dest_branch_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
   `open` char(1) NOT NULL DEFAULT 'N',
   `status` char(1) NOT NULL DEFAULT '',
-  `nbr_patch_sets` int(11) NOT NULL DEFAULT '0',
   `current_patch_set_id` int(11) NOT NULL DEFAULT '0',
   `subject` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
   `topic` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
@@ -587,6 +538,10 @@ CREATE TABLE `patch_comments` (
   `patch_set_id` int(11) NOT NULL DEFAULT '0',
   `file_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
   `uuid` varchar(40) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `range_end_character` int(11) DEFAULT NULL,
+  `range_end_line` int(11) DEFAULT NULL,
+  `range_start_character` int(11) DEFAULT NULL,
+  `range_start_line` int(11) DEFAULT NULL,
   PRIMARY KEY (`change_id`,`patch_set_id`,`file_name`,`uuid`),
   KEY `patch_comment_drafts` (`status`,`author_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -642,10 +597,10 @@ CREATE TABLE `patch_set_approvals` (
   `change_id` int(11) NOT NULL DEFAULT '0',
   `patch_set_id` int(11) NOT NULL DEFAULT '0',
   `account_id` int(11) NOT NULL DEFAULT '0',
-  `category_id` varchar(4) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `category_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
   PRIMARY KEY (`change_id`,`patch_set_id`,`account_id`,`category_id`),
   KEY `patch_set_approvals_openByUser` (`change_open`,`account_id`),
-  KEY `patch_set_approvals_closedByUser` (`change_open`,`account_id`,`change_sort_key`)
+  KEY `patch_set_approvals_closedByU` (`change_open`,`account_id`,`change_sort_key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -705,7 +660,7 @@ CREATE TABLE `schema_version` (
 
 LOCK TABLES `schema_version` WRITE;
 /*!40000 ALTER TABLE `schema_version` DISABLE KEYS */;
-INSERT INTO `schema_version` VALUES (73,'X');
+INSERT INTO `schema_version` VALUES (84,'X');
 /*!40000 ALTER TABLE `schema_version` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -747,7 +702,7 @@ CREATE TABLE `submodule_subscriptions` (
   `super_project_branch_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
   `submodule_path` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
   PRIMARY KEY (`super_project_project_name`,`super_project_branch_name`,`submodule_path`),
-  KEY `submodule_subscription_access_bySubscription` (`submodule_project_name`,`submodule_branch_name`)
+  KEY `submodule_subscr_acc_bys` (`submodule_project_name`,`submodule_branch_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -827,4 +782,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-11-07 16:44:28
+-- Dump completed on 2014-06-17 12:38:13
