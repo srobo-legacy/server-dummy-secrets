@@ -6261,17 +6261,17 @@ cn: Blue
 userPassword:: e1NIQX1KaWNITFBKcyswbXhpQUE4d2xBZEVxbXFpaTQ9
 
 dn: uid=blueshirt2,ou=users,o=sr
-uid: blueshirt
+uid: blueshirt2
 objectClass: inetOrgPerson
 objectClass: uidObject
 objectClass: posixAccount
 loginShell: /bin/bash
-uidNumber: 2420
+uidNumber: 2421
 gidNumber: 1999
-sn: Shirt
-homeDirectory: /home/blueshirt
-mail: blueshirt@example.com
-cn: Blue
+sn: Shirt2
+homeDirectory: /home/blueshirt2
+mail: blueshirt2@example.com
+cn: Blue2
 userPassword:: e1NIQX1KaWNITFBKcyswbXhpQUE4d2xBZEVxbXFpaTQ9
 
 dn: uid=withdrawn_student,ou=users,o=sr
