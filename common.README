@@ -70,3 +70,13 @@ ldap_mediaconsent_user_pw       Password for the MCF LDAP account. Plaintext.
 ldap_mediaconsent_user_ssha_pw	Password for ticket account, but in LDAP's
 				internal format for the userPassword attribute.
 				See ldap_anon_user_ssha_pw.
+fritter_mail_smtp		SMTP server for fritter to send emails by
+fritter_mail_user		Username for fritter to auth with (for gmail
+				based systems, username@domain)
+fritter_mail_pw			Plaintext emaili account password
+fritter_mail_from		Email address for fritter mail to have the
+				'From:' field set to. The format is:
+				'Some Name <mail@addr>', as you'll find in most
+				popular email clients
+fritter_ldap_user_pw		Plaintext password for fritter ldap account
+fritter_ldap_user_ssha_pw	Fritter ldap user password, encoded as SSHA
