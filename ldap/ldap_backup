@@ -6363,7 +6363,7 @@ memberUid: acc_ol1
 memberUid: acd_mk1
 memberUid: ace_kl1
 description: teachers group
-gidNumber: 3002
+gidNumber: 2005
 
 # students, groups, sr
 dn: cn=students,ou=groups,o=sr
@@ -6724,7 +6724,7 @@ memberUid: ace_oh1
 memberUid: ace_lm1
 memberUid: ace_mn1
 description: students group
-gidNumber: 3003
+gidNumber: 2006
 
 # college-1, groups, sr
 dn: cn=college-1,ou=groups,o=sr
@@ -8364,4 +8364,3 @@ cn: ide-admin
 memberUid: blueshirt
 description: ide-admin group
 gidNumber: 3118
-
