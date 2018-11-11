@@ -76,7 +76,7 @@ CREATE TABLE `phpbb_acl_options` (
   `founder_only` tinyint(1) unsigned NOT NULL DEFAULT 0,
   PRIMARY KEY (`auth_option_id`),
   UNIQUE KEY `auth_option` (`auth_option`)
-) ENGINE=InnoDB AUTO_INCREMENT=122 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=125 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -206,7 +206,10 @@ INSERT INTO `phpbb_acl_options` VALUES
   (118,'u_sendpm',1,0,0),
   (119,'u_sig',1,0,0),
   (120,'u_viewonline',1,0,0),
-  (121,'u_viewprofile',1,0,0);
+  (121,'u_viewprofile',1,0,0),
+  (122,'m_pm_report',1,0,0),
+  (123,'f_announce_global',0,1,0),
+  (124,'f_list_topics',0,1,0);
 /*!40000 ALTER TABLE `phpbb_acl_options` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -509,6 +512,7 @@ INSERT INTO `phpbb_acl_roles_data` VALUES
   (10,43,1),
   (10,44,1),
   (10,45,1),
+  (10,122,1),
   (11,32,1),
   (11,33,1),
   (11,35,1),
@@ -521,12 +525,14 @@ INSERT INTO `phpbb_acl_roles_data` VALUES
   (11,42,1),
   (11,43,1),
   (11,45,1),
+  (11,122,1),
   (12,32,1),
   (12,35,1),
   (12,36,1),
   (12,37,1),
   (12,41,1),
   (12,43,1),
+  (12,122,1),
   (13,32,1),
   (13,33,1),
   (13,36,1),
@@ -561,6 +567,8 @@ INSERT INTO `phpbb_acl_roles_data` VALUES
   (14,29,1),
   (14,30,1),
   (14,31,1),
+  (14,123,1),
+  (14,124,1),
   (15,1,1),
   (15,3,1),
   (15,4,1),
@@ -586,6 +594,7 @@ INSERT INTO `phpbb_acl_roles_data` VALUES
   (15,29,1),
   (15,30,1),
   (15,31,1),
+  (15,124,1),
   (16,1,0),
   (17,1,1),
   (17,7,1),
@@ -594,6 +603,7 @@ INSERT INTO `phpbb_acl_roles_data` VALUES
   (17,20,1),
   (17,23,1),
   (17,27,1),
+  (17,124,1),
   (18,1,1),
   (18,4,1),
   (18,7,1),
@@ -614,11 +624,13 @@ INSERT INTO `phpbb_acl_roles_data` VALUES
   (18,27,1),
   (18,29,1),
   (18,31,1),
+  (18,124,1),
   (19,1,1),
   (19,7,1),
   (19,14,1),
   (19,19,1),
   (19,20,1),
+  (19,124,1),
   (20,1,1),
   (20,3,1),
   (20,4,1),
@@ -640,6 +652,7 @@ INSERT INTO `phpbb_acl_roles_data` VALUES
   (20,27,1),
   (20,29,1),
   (20,31,1),
+  (20,124,1),
   (21,1,1),
   (21,3,1),
   (21,4,1),
@@ -666,6 +679,7 @@ INSERT INTO `phpbb_acl_roles_data` VALUES
   (21,29,1),
   (21,30,1),
   (21,31,1),
+  (21,124,1),
   (22,1,1),
   (22,4,1),
   (22,7,1),
@@ -687,6 +701,7 @@ INSERT INTO `phpbb_acl_roles_data` VALUES
   (22,27,1),
   (22,29,1),
   (22,31,1),
+  (22,124,1),
   (23,96,0),
   (23,100,0),
   (23,101,0),
@@ -703,7 +718,7 @@ DROP TABLE IF EXISTS `phpbb_acl_users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `phpbb_acl_users` (
-  `user_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `user_id` int(10) unsigned NOT NULL DEFAULT 0,
   `forum_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
   `auth_option_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
   `auth_role_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
@@ -733,11 +748,11 @@ DROP TABLE IF EXISTS `phpbb_attachments`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `phpbb_attachments` (
-  `attach_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  `post_msg_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
-  `topic_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `attach_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `post_msg_id` int(10) unsigned NOT NULL DEFAULT 0,
+  `topic_id` int(10) unsigned NOT NULL DEFAULT 0,
   `in_message` tinyint(1) unsigned NOT NULL DEFAULT 0,
-  `poster_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `poster_id` int(10) unsigned NOT NULL DEFAULT 0,
   `is_orphan` tinyint(1) unsigned NOT NULL DEFAULT 1,
   `physical_filename` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
   `real_filename` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
@@ -774,8 +789,8 @@ DROP TABLE IF EXISTS `phpbb_banlist`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `phpbb_banlist` (
-  `ban_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  `ban_userid` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `ban_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `ban_userid` int(10) unsigned NOT NULL DEFAULT 0,
   `ban_ip` varchar(40) COLLATE utf8_bin NOT NULL DEFAULT '',
   `ban_email` varchar(100) COLLATE utf8_bin NOT NULL DEFAULT '',
   `ban_start` int(11) unsigned NOT NULL DEFAULT 0,
@@ -840,8 +855,8 @@ DROP TABLE IF EXISTS `phpbb_bookmarks`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `phpbb_bookmarks` (
-  `topic_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
-  `user_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `topic_id` int(10) unsigned NOT NULL DEFAULT 0,
+  `user_id` int(10) unsigned NOT NULL DEFAULT 0,
   PRIMARY KEY (`topic_id`,`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -863,10 +878,10 @@ DROP TABLE IF EXISTS `phpbb_bots`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `phpbb_bots` (
-  `bot_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `bot_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `bot_active` tinyint(1) unsigned NOT NULL DEFAULT 1,
   `bot_name` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `user_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `user_id` int(10) unsigned NOT NULL DEFAULT 0,
   `bot_agent` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
   `bot_ip` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
   PRIMARY KEY (`bot_id`),
@@ -917,6 +932,7 @@ INSERT INTO `phpbb_config` VALUES
   ('allow_avatar_upload','0',0),
   ('allow_bbcode','1',0),
   ('allow_birthdays','0',0),
+  ('allow_board_notifications','1',0),
   ('allow_bookmarks','1',0),
   ('allow_cdn','0',0),
   ('allow_emailreuse','0',0),
@@ -942,7 +958,8 @@ INSERT INTO `phpbb_config` VALUES
   ('allow_sig_smilies','1',0),
   ('allow_smilies','1',0),
   ('allow_topic_notify','0',0),
-  ('assets_version','5',0),
+  ('allowed_schemes_links','http,https,ftp',0),
+  ('assets_version','6',0),
   ('attachment_quota','52428800',0),
   ('auth_bbcode_pm','1',0),
   ('auth_flash_pm','0',0),
@@ -994,6 +1011,7 @@ INSERT INTO `phpbb_config` VALUES
   ('contact_admin_form_enable','1',0),
   ('cookie_domain','.sr-vm',0),
   ('cookie_name','phpbb3_fkyur',0),
+  ('cookie_notice','0',0),
   ('cookie_path','/forum/',0),
   ('cookie_secure','1',0),
   ('coppa_enable','0',0),
@@ -1013,13 +1031,15 @@ INSERT INTO `phpbb_config` VALUES
   ('edit_time','0',0),
   ('email_check_mx','1',0),
   ('email_enable','0',0),
-  ('email_function_name','mail',0),
+  ('email_force_sender','0',0),
   ('email_max_chunk_size','50',0),
   ('email_package_size','20',0),
+  ('enable_accurate_pm_button','1',0),
   ('enable_confirm','1',0),
   ('enable_mod_rewrite','0',0),
   ('enable_pm_icons','1',0),
   ('enable_post_confirm','1',0),
+  ('enable_update_hashes','1',0),
   ('extension_force_unstable','0',0),
   ('feed_enable','1',0),
   ('feed_forum','1',0),
@@ -1052,6 +1072,8 @@ INSERT INTO `phpbb_config` VALUES
   ('fulltext_sphinx_indexer_mem_limit','512',0),
   ('fulltext_sphinx_stopwords','0',0),
   ('gzip_compress','0',0),
+  ('help_send_statistics','1',0),
+  ('help_send_statistics_time','0',0),
   ('hot_threshold','25',0),
   ('icons_path','images/icons',0),
   ('img_create_thumbnail','0',0),
@@ -1067,6 +1089,7 @@ INSERT INTO `phpbb_config` VALUES
   ('ip_login_limit_max','50',0),
   ('ip_login_limit_time','21600',0),
   ('ip_login_limit_use_forwarded','0',0),
+  ('jab_allow_self_signed','0',0),
   ('jab_enable','0',0),
   ('jab_host','',0),
   ('jab_package_size','20',0),
@@ -1074,6 +1097,8 @@ INSERT INTO `phpbb_config` VALUES
   ('jab_port','5222',0),
   ('jab_use_ssl','0',0),
   ('jab_username','',0),
+  ('jab_verify_peer','1',0),
+  ('jab_verify_peer_name','1',0),
   ('last_queue_run','0',1),
   ('ldap_base_dn','ou=users,o=sr',0),
   ('ldap_email','',0),
@@ -1094,6 +1119,7 @@ INSERT INTO `phpbb_config` VALUES
   ('load_cpf_viewtopic','1',0),
   ('load_db_lastread','1',0),
   ('load_db_track','1',0),
+  ('load_font_awesome_url','https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css',0),
   ('load_jquery_url','//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js',0),
   ('load_jumpbox','1',0),
   ('load_moderators','1',0),
@@ -1106,6 +1132,7 @@ INSERT INTO `phpbb_config` VALUES
   ('load_tplcompile','0',0),
   ('load_unreads_search','1',0),
   ('load_user_activity','1',0),
+  ('load_user_activity_limit','5000',0),
   ('max_attachments','3',0),
   ('max_attachments_pm','1',0),
   ('max_autologin_time','0',0),
@@ -1165,6 +1192,8 @@ INSERT INTO `phpbb_config` VALUES
   ('record_online_date','1475420623',1),
   ('record_online_users','2',1),
   ('referer_validation','1',0),
+  ('remote_upload_verify','0',0),
+  ('reparse_lock','0',1),
   ('require_activation','3',0),
   ('script_path','/forum',0),
   ('search_anonymous_interval','0',0),
@@ -1190,21 +1219,36 @@ INSERT INTO `phpbb_config` VALUES
   ('sitename','Student Robotics',0),
   ('smilies_path','images/smilies',0),
   ('smilies_per_page','50',0),
+  ('smtp_allow_self_signed','0',0),
   ('smtp_auth_method','PLAIN',0),
   ('smtp_delivery','0',0),
   ('smtp_host','',0),
   ('smtp_password','',0),
   ('smtp_port','25',0),
   ('smtp_username','',0),
+  ('smtp_verify_peer','1',0),
+  ('smtp_verify_peer_name','1',0),
   ('teampage_forums','1',0),
   ('teampage_memberships','1',0),
+  ('text_reparser.pm_text_cron_interval','10',0),
+  ('text_reparser.pm_text_last_cron','0',0),
+  ('text_reparser.poll_option_cron_interval','10',0),
+  ('text_reparser.poll_option_last_cron','0',0),
+  ('text_reparser.poll_title_cron_interval','10',0),
+  ('text_reparser.poll_title_last_cron','0',0),
+  ('text_reparser.post_text_cron_interval','10',0),
+  ('text_reparser.post_text_last_cron','0',0),
+  ('text_reparser.user_signature_cron_interval','10',0),
+  ('text_reparser.user_signature_last_cron','0',0),
   ('topics_per_page','25',0),
   ('tpl_allow_php','0',0),
+  ('update_hashes_last_cron','0',0),
+  ('update_hashes_lock','',0),
   ('upload_dir_size','0',1),
   ('upload_icons_path','images/upload_icons',0),
   ('upload_path','files',0),
   ('use_system_cron','0',0),
-  ('version','3.1.6',0),
+  ('version','3.2.3',0),
   ('warnings_expire_days','90',0),
   ('warnings_gc','14400',0),
   ('warnings_last_gc','1464791297',1);
@@ -1232,10 +1276,11 @@ CREATE TABLE `phpbb_config_text` (
 LOCK TABLES `phpbb_config_text` WRITE;
 /*!40000 ALTER TABLE `phpbb_config_text` DISABLE KEYS */;
 INSERT INTO `phpbb_config_text` VALUES
-  ('contact_admin_info',''),
+  ('contact_admin_info','<t></t>'),
   ('contact_admin_info_bitfield',''),
   ('contact_admin_info_flags','7'),
-  ('contact_admin_info_uid','');
+  ('contact_admin_info_uid',''),
+  ('reparser_resume','a:9:{s:32:\"text_reparser.contact_admin_info\";a:3:{s:9:\"range-min\";i:1;s:9:\"range-max\";i:0;s:10:\"range-size\";i:100;}s:31:\"text_reparser.forum_description\";a:3:{s:9:\"range-min\";i:1;s:9:\"range-max\";i:0;s:10:\"range-size\";i:100;}s:25:\"text_reparser.forum_rules\";a:3:{s:9:\"range-min\";i:1;s:9:\"range-max\";i:0;s:10:\"range-size\";i:100;}s:31:\"text_reparser.group_description\";a:3:{s:9:\"range-min\";i:1;s:9:\"range-max\";i:0;s:10:\"range-size\";i:100;}s:21:\"text_reparser.pm_text\";a:3:{s:9:\"range-min\";i:1;s:9:\"range-max\";i:0;s:10:\"range-size\";i:100;}s:25:\"text_reparser.poll_option\";a:3:{s:9:\"range-min\";i:1;s:9:\"range-max\";i:0;s:10:\"range-size\";i:100;}s:24:\"text_reparser.poll_title\";a:3:{s:9:\"range-min\";i:1;s:9:\"range-max\";i:0;s:10:\"range-size\";i:100;}s:23:\"text_reparser.post_text\";a:3:{s:9:\"range-min\";i:1;s:9:\"range-max\";i:0;s:10:\"range-size\";i:100;}s:28:\"text_reparser.user_signature\";a:3:{s:9:\"range-min\";i:1;s:9:\"range-max\";i:2;s:10:\"range-size\";i:100;}}');
 /*!40000 ALTER TABLE `phpbb_config_text` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1298,9 +1343,9 @@ DROP TABLE IF EXISTS `phpbb_drafts`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `phpbb_drafts` (
-  `draft_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
-  `topic_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `draft_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) unsigned NOT NULL DEFAULT 0,
+  `topic_id` int(10) unsigned NOT NULL DEFAULT 0,
   `forum_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
   `save_time` int(11) unsigned NOT NULL DEFAULT 0,
   `draft_subject` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
@@ -1378,10 +1423,7 @@ INSERT INTO `phpbb_extension_groups` VALUES
   (2,'ARCHIVES',0,1,1,'',0,'',0),
   (3,'PLAIN_TEXT',0,0,1,'',0,'',0),
   (4,'DOCUMENTS',0,0,1,'',0,'',0),
-  (5,'REAL_MEDIA',3,0,1,'',0,'',0),
-  (6,'WINDOWS_MEDIA',2,0,1,'',0,'',0),
   (7,'FLASH_FILES',5,0,1,'',0,'',0),
-  (8,'QUICKTIME_MEDIA',6,0,1,'',0,'',0),
   (9,'DOWNLOADABLE_FILES',0,0,1,'',0,'',0);
 /*!40000 ALTER TABLE `phpbb_extension_groups` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1457,18 +1499,18 @@ INSERT INTO `phpbb_extensions` VALUES
   (47,4,'ods'),
   (48,4,'odt'),
   (49,4,'rtf'),
-  (50,5,'rm'),
-  (51,5,'ram'),
-  (52,6,'wma'),
-  (53,6,'wmv'),
+  (50,9,'rm'),
+  (51,9,'ram'),
+  (52,9,'wma'),
+  (53,9,'wmv'),
   (54,7,'swf'),
-  (55,8,'mov'),
-  (56,8,'m4v'),
-  (57,8,'m4a'),
-  (58,8,'mp4'),
-  (59,8,'3gp'),
-  (60,8,'3g2'),
-  (61,8,'qt'),
+  (55,9,'mov'),
+  (56,9,'m4v'),
+  (57,9,'m4a'),
+  (58,9,'mp4'),
+  (59,9,'3gp'),
+  (60,9,'3g2'),
+  (61,9,'qt'),
   (62,9,'mpeg'),
   (63,9,'mpg'),
   (64,9,'mp3'),
@@ -1507,8 +1549,8 @@ CREATE TABLE `phpbb_forums` (
   `forum_topics_per_page` tinyint(4) NOT NULL DEFAULT 0,
   `forum_type` tinyint(4) NOT NULL DEFAULT 0,
   `forum_status` tinyint(4) NOT NULL DEFAULT 0,
-  `forum_last_post_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
-  `forum_last_poster_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `forum_last_post_id` int(10) unsigned NOT NULL DEFAULT 0,
+  `forum_last_poster_id` int(10) unsigned NOT NULL DEFAULT 0,
   `forum_last_post_subject` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
   `forum_last_post_time` int(11) unsigned NOT NULL DEFAULT 0,
   `forum_last_poster_name` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
@@ -1547,12 +1589,12 @@ CREATE TABLE `phpbb_forums` (
 LOCK TABLES `phpbb_forums` WRITE;
 /*!40000 ALTER TABLE `phpbb_forums` DISABLE KEYS */;
 INSERT INTO `phpbb_forums` VALUES
-  (5,0,5,6,'','Electronics','Electrons, holes and joules.','',7,'','','',0,'','','','',7,'',0,1,0,0,0,'',0,'','',48,0,1,0,0,0,7,7,1,1,0,0,7,1,0,0,0,0,0,0,0),
-  (9,0,1,2,'','General Discussion','General chitchat.','',7,'','','',0,'','','','',7,'',0,1,0,0,0,'',0,'','',48,0,1,0,0,0,7,7,1,1,0,0,7,1,0,0,0,0,0,0,0),
-  (10,0,3,4,'','Programming','Python, libraries and concepts.','',7,'','','',0,'','','','',7,'',0,1,0,0,0,'',0,'','',48,0,1,0,0,0,7,7,1,1,0,0,7,1,0,0,0,0,0,0,0),
-  (11,0,7,8,'','Mechanics','Pulleys, sprockets, hinges and gudgeon pins.','',7,'','','',0,'','','','',7,'',0,1,0,0,0,'',0,'','',48,0,1,0,0,0,7,7,1,1,0,0,7,1,0,0,0,0,0,0,0),
-  (12,0,9,10,'','Teams on the web','A place to show off your team blogs, videos, and bat-based memes.','',7,'','','',0,'','','','',7,'',0,1,0,0,0,'',0,'','',48,0,1,0,0,0,7,7,1,1,0,0,7,1,0,0,0,0,0,0,0),
-  (13,0,11,12,'','The Game (TODO: RENAME)','Discussion about the game.','',7,'','','',0,'','','','',7,'',0,1,0,0,0,'',0,'','',48,0,1,0,0,0,7,7,1,1,0,0,7,1,0,0,0,0,0,0,0);
+  (5,0,5,6,'','Electronics','<t>Electrons, holes and joules.</t>','',7,'','','',0,'','<t></t>','','',7,'',0,1,0,0,0,'',0,'','',48,0,1,0,0,0,7,7,1,1,0,0,7,1,0,0,0,0,0,0,0),
+  (9,0,1,2,'','General Discussion','<t>General chitchat.</t>','',7,'','','',0,'','<t></t>','','',7,'',0,1,0,0,0,'',0,'','',48,0,1,0,0,0,7,7,1,1,0,0,7,1,0,0,0,0,0,0,0),
+  (10,0,3,4,'','Programming','<t>Python, libraries and concepts.</t>','',7,'','','',0,'','<t></t>','','',7,'',0,1,0,0,0,'',0,'','',48,0,1,0,0,0,7,7,1,1,0,0,7,1,0,0,0,0,0,0,0),
+  (11,0,7,8,'','Mechanics','<t>Pulleys, sprockets, hinges and gudgeon pins.</t>','',7,'','','',0,'','<t></t>','','',7,'',0,1,0,0,0,'',0,'','',48,0,1,0,0,0,7,7,1,1,0,0,7,1,0,0,0,0,0,0,0),
+  (12,0,9,10,'','Teams on the web','<t>A place to show off your team blogs, videos, and bat-based memes.</t>','',7,'','','',0,'','<t></t>','','',7,'',0,1,0,0,0,'',0,'','',48,0,1,0,0,0,7,7,1,1,0,0,7,1,0,0,0,0,0,0,0),
+  (13,0,11,12,'','The Game (TODO: RENAME)','<t>Discussion about the game.</t>','',7,'','','',0,'','<t></t>','','',7,'',0,1,0,0,0,'',0,'','',48,0,1,0,0,0,7,7,1,1,0,0,7,1,0,0,0,0,0,0,0);
 /*!40000 ALTER TABLE `phpbb_forums` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1565,7 +1607,7 @@ DROP TABLE IF EXISTS `phpbb_forums_access`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `phpbb_forums_access` (
   `forum_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
-  `user_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `user_id` int(10) unsigned NOT NULL DEFAULT 0,
   `session_id` char(32) COLLATE utf8_bin NOT NULL DEFAULT '',
   PRIMARY KEY (`forum_id`,`user_id`,`session_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -1588,7 +1630,7 @@ DROP TABLE IF EXISTS `phpbb_forums_track`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `phpbb_forums_track` (
-  `user_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `user_id` int(10) unsigned NOT NULL DEFAULT 0,
   `forum_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
   `mark_time` int(11) unsigned NOT NULL DEFAULT 0,
   PRIMARY KEY (`user_id`,`forum_id`)
@@ -1613,7 +1655,7 @@ DROP TABLE IF EXISTS `phpbb_forums_watch`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `phpbb_forums_watch` (
   `forum_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
-  `user_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `user_id` int(10) unsigned NOT NULL DEFAULT 0,
   `notify_status` tinyint(1) unsigned NOT NULL DEFAULT 0,
   KEY `forum_id` (`forum_id`),
   KEY `user_id` (`user_id`),
@@ -1671,13 +1713,13 @@ CREATE TABLE `phpbb_groups` (
 LOCK TABLES `phpbb_groups` WRITE;
 /*!40000 ALTER TABLE `phpbb_groups` DISABLE KEYS */;
 INSERT INTO `phpbb_groups` VALUES
-  (1,3,0,0,'GUESTS','','',7,'',0,'','',0,0,0,'',0,0,0,0,5),
-  (2,3,0,0,'REGISTERED','','',7,'',0,'','',0,0,0,'',0,0,0,0,5),
-  (3,3,0,0,'REGISTERED_COPPA','','',7,'',0,'','',0,0,0,'',0,0,0,0,5),
-  (4,3,0,0,'GLOBAL_MODERATORS','','',7,'',0,'','',0,0,0,'00AA00',0,0,0,2,0),
-  (5,3,1,0,'ADMINISTRATORS','','',7,'',0,'','',0,0,0,'AA0000',0,0,0,1,0),
-  (6,3,0,0,'BOTS','','',7,'',0,'','',0,0,0,'9E8DA7',0,0,0,0,5),
-  (7,3,0,0,'NEWLY_REGISTERED','','',7,'',0,'','',0,0,0,'',0,0,0,0,5);
+  (1,3,0,0,'GUESTS','<t></t>','',7,'',0,'','',0,0,0,'',0,0,0,0,5),
+  (2,3,0,0,'REGISTERED','<t></t>','',7,'',0,'','',0,0,0,'',0,0,0,0,5),
+  (3,3,0,0,'REGISTERED_COPPA','<t></t>','',7,'',0,'','',0,0,0,'',0,0,0,0,5),
+  (4,3,0,0,'GLOBAL_MODERATORS','<t></t>','',7,'',0,'','',0,0,0,'00AA00',0,0,0,2,0),
+  (5,3,1,0,'ADMINISTRATORS','<t></t>','',7,'',0,'','',0,0,0,'AA0000',0,0,0,1,0),
+  (6,3,0,0,'BOTS','<t></t>','',7,'',0,'','',0,0,0,'9E8DA7',0,0,0,0,5),
+  (7,3,0,0,'NEWLY_REGISTERED','<t></t>','',7,'',0,'','',0,0,0,'',0,0,0,0,5);
 /*!40000 ALTER TABLE `phpbb_groups` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1693,6 +1735,7 @@ CREATE TABLE `phpbb_icons` (
   `icons_url` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
   `icons_width` tinyint(4) NOT NULL DEFAULT 0,
   `icons_height` tinyint(4) NOT NULL DEFAULT 0,
+  `icons_alt` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
   `icons_order` mediumint(8) unsigned NOT NULL DEFAULT 0,
   `display_on_posting` tinyint(1) unsigned NOT NULL DEFAULT 1,
   PRIMARY KEY (`icons_id`),
@@ -1707,16 +1750,16 @@ CREATE TABLE `phpbb_icons` (
 LOCK TABLES `phpbb_icons` WRITE;
 /*!40000 ALTER TABLE `phpbb_icons` DISABLE KEYS */;
 INSERT INTO `phpbb_icons` VALUES
-  (1,'misc/fire.gif',16,16,1,1),
-  (2,'smile/redface.gif',16,16,9,1),
-  (3,'smile/mrgreen.gif',16,16,10,1),
-  (4,'misc/heart.gif',16,16,4,1),
-  (5,'misc/star.gif',16,16,2,1),
-  (6,'misc/radioactive.gif',16,16,3,1),
-  (7,'misc/thinking.gif',16,16,5,1),
-  (8,'smile/info.gif',16,16,8,1),
-  (9,'smile/question.gif',16,16,6,1),
-  (10,'smile/alert.gif',16,16,7,1);
+  (1,'misc/fire.gif',16,16,'',1,1),
+  (2,'smile/redface.gif',16,16,'',9,1),
+  (3,'smile/mrgreen.gif',16,16,'',10,1),
+  (4,'misc/heart.gif',16,16,'',4,1),
+  (5,'misc/star.gif',16,16,'',2,1),
+  (6,'misc/radioactive.gif',16,16,'',3,1),
+  (7,'misc/thinking.gif',16,16,'',5,1),
+  (8,'smile/info.gif',16,16,'',8,1),
+  (9,'smile/question.gif',16,16,'',6,1),
+  (10,'smile/alert.gif',16,16,'',7,1);
 /*!40000 ALTER TABLE `phpbb_icons` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1758,12 +1801,13 @@ DROP TABLE IF EXISTS `phpbb_log`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `phpbb_log` (
-  `log_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `log_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `log_type` tinyint(4) NOT NULL DEFAULT 0,
-  `user_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `user_id` int(10) unsigned NOT NULL DEFAULT 0,
   `forum_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
-  `topic_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
-  `reportee_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `topic_id` int(10) unsigned NOT NULL DEFAULT 0,
+  `post_id` int(10) unsigned NOT NULL DEFAULT 0,
+  `reportee_id` int(10) unsigned NOT NULL DEFAULT 0,
   `log_ip` varchar(40) COLLATE utf8_bin NOT NULL DEFAULT '',
   `log_time` int(11) unsigned NOT NULL DEFAULT 0,
   `log_operation` text COLLATE utf8_bin NOT NULL,
@@ -1773,8 +1817,9 @@ CREATE TABLE `phpbb_log` (
   KEY `forum_id` (`forum_id`),
   KEY `topic_id` (`topic_id`),
   KEY `reportee_id` (`reportee_id`),
-  KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=109 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+  KEY `user_id` (`user_id`),
+  KEY `log_time` (`log_time`)
+) ENGINE=InnoDB AUTO_INCREMENT=111 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1784,48 +1829,50 @@ CREATE TABLE `phpbb_log` (
 LOCK TABLES `phpbb_log` WRITE;
 /*!40000 ALTER TABLE `phpbb_log` DISABLE KEYS */;
 INSERT INTO `phpbb_log` VALUES
-  (1,0,2,0,0,0,'127.0.0.1',1443381525,'LOG_INSTALL_INSTALLED','a:1:{i:0;s:5:\"3.1.6\";}'),
-  (2,0,2,0,0,0,'127.0.0.1',1443381592,'LOG_CONFIG_SERVER',''),
-  (3,0,2,0,0,0,'127.0.0.1',1443381692,'LOG_CONFIG_SETTINGS',''),
-  (4,0,2,0,0,0,'127.0.0.1',1443381739,'LOG_CONFIG_FEATURES',''),
-  (5,0,2,0,0,0,'127.0.0.1',1443381764,'LOG_CONFIG_SIGNATURE',''),
-  (6,0,2,0,0,0,'127.0.0.1',1443381802,'LOG_CONFIG_REGISTRATION',''),
-  (7,0,2,0,0,0,'127.0.0.1',1443381852,'LOG_CONFIG_SECURITY',''),
-  (8,0,2,0,0,0,'127.0.0.1',1443381897,'LOG_BOT_DELETE','a:1:{i:0;s:785:\"AdsBot [Google], Alexa [Bot], Alta Vista [Bot], Ask Jeeves [Bot], Baidu [Spider], Bing [Bot], Exabot [Bot], FAST Enterprise [Crawler], FAST WebCrawler [Crawler], Francis [Bot], Gigabot [Bot], Google Adsense [Bot], Google Desktop, Google Feedfetcher, Google [Bot], Heise IT-Markt [Crawler], Heritrix [Crawler], IBM Research [Bot], ICCrawler - ICjobs, ichiro [Crawler], Majestic-12 [Bot], Metager [Bot], MSN NewsBlogs, MSN [Bot], MSNbot Media, Nutch [Bot], Online link [Validator], psbot [Picsearch], Sensis [Crawler], SEO Crawler, Seoma [Crawler], SEOSearch [Crawler], Snappy [Bot], Steeler [Crawler], Telekom [Bot], TurnitinBot [Bot], Voyager [Bot], W3 [Sitesearch], W3C [Linkcheck], W3C [Validator], YaCy [Bot], Yahoo MMCrawler [Bot], Yahoo Slurp [Bot], Yahoo [Bot], YahooSeeker [Bot]\";}'),
-  (9,0,2,0,0,0,'127.0.0.1',1443381987,'LOG_EXT_ENABLE','a:1:{i:0;s:6:\"sr/etc\";}'),
-  (10,0,2,0,0,0,'127.0.0.1',1443381992,'LOG_EXT_ENABLE','a:1:{i:0;s:10:\"sr/pipebot\";}'),
-  (11,0,2,0,0,0,'127.0.0.1',1443382259,'LOG_STYLE_ADD','a:1:{i:0;s:25:\"prosilver Special Edition\";}'),
-  (12,0,2,0,0,0,'127.0.0.1',1443382275,'LOG_CONFIG_SETTINGS',''),
-  (13,0,2,0,0,0,'127.0.0.1',1443382406,'LOG_FORUM_DEL_FORUMS','a:1:{i:0;s:19:\"Your first category\";}'),
-  (26,0,2,0,0,0,'127.0.0.1',1443382992,'LOG_CONFIG_AUTH',''),
-  (27,0,2,0,0,0,'127.0.0.1',1443384005,'LOG_ADMIN_AUTH_SUCCESS',''),
-  (28,0,2,0,0,0,'127.0.0.1',1443384021,'LOG_CONFIG_SETTINGS',''),
-  (35,0,2,0,0,0,'127.0.0.1',1443532039,'LOG_CONFIG_SETTINGS',''),
-  (36,0,2,0,0,0,'127.0.0.1',1443532151,'LOG_CONFIG_SETTINGS',''),
-  (53,0,2,0,0,0,'127.0.0.1',1454516687,'LOG_USERS_ADDED','a:2:{i:0;s:14:\"Administrators\";i:1;s:8:\"rspanton\";}'),
-  (55,1,1,0,70,0,'127.0.0.1',1454516785,'LOG_SPLIT_SOURCE','a:1:{i:0;s:26:\"Problem starting our Robot\";}'),
-  (59,1,1,0,88,0,'127.0.0.1',1456411042,'LOG_SPLIT_SOURCE','a:1:{i:0;s:50:\"Ridiculously strange error - anyone else had it???\";}'),
-  (67,0,2,0,0,0,'127.0.0.1',1464791419,'LOG_CONFIG_SETTINGS',''),
-  (71,0,2,0,0,0,'127.0.0.1',1475415837,'LOG_CONFIG_SETTINGS',''),
-  (79,0,2,0,0,0,'127.0.0.1',1475416293,'LOG_FORUM_DEL_POSTS','a:1:{i:0;s:11:\"Programming\";}'),
-  (84,0,2,0,0,0,'127.0.0.1',1475416431,'LOG_FORUM_ADD','a:1:{i:0;s:18:\"General Discussion\";}'),
-  (85,0,2,0,0,0,'127.0.0.1',1475416549,'LOG_FORUM_ADD','a:1:{i:0;s:11:\"Programming\";}'),
-  (86,0,2,0,0,0,'127.0.0.1',1475416596,'LOG_FORUM_ADD','a:1:{i:0;s:9:\"Mechanics\";}'),
-  (87,0,2,0,0,0,'127.0.0.1',1475416639,'LOG_FORUM_ADD','a:1:{i:0;s:16:\"Teams on the web\";}'),
-  (88,0,2,0,0,0,'127.0.0.1',1475416646,'LOG_FORUM_MOVE_UP','a:2:{i:0;s:18:\"General Discussion\";i:1;s:11:\"Electronics\";}'),
-  (89,0,2,0,0,0,'127.0.0.1',1475416648,'LOG_FORUM_MOVE_UP','a:2:{i:0;s:11:\"Programming\";i:1;s:11:\"Electronics\";}'),
-  (90,0,2,0,0,0,'127.0.0.1',1475416675,'LOG_FORUM_ADD','a:1:{i:0;s:23:\"The Game (TODO: RENAME)\";}'),
-  (93,0,2,0,0,0,'127.0.0.1',1475417641,'LOG_ACL_ADD_FORUM_LOCAL_F_','a:2:{i:0;s:98:\"Electronics, General Discussion, Programming, Mechanics, Teams on the web, The Game (TODO: RENAME)\";i:1;s:41:\"<span class=\"sep\">Registered users</span>\";}'),
-  (94,0,2,0,0,0,'127.0.0.1',1475417853,'LOG_CONFIG_SETTINGS',''),
-  (95,0,2,0,0,0,'127.0.0.1',1475417887,'LOG_CONFIG_SETTINGS',''),
-  (96,0,2,0,0,0,'127.0.0.1',1475417943,'LOG_RESYNC_STATS',''),
-  (97,0,2,0,0,0,'127.0.0.1',1475417948,'LOG_RESYNC_POSTCOUNTS',''),
-  (98,0,2,0,0,0,'127.0.0.1',1475417952,'LOG_RESET_DATE',''),
-  (99,0,2,0,0,0,'127.0.0.1',1475417956,'LOG_RESET_ONLINE',''),
-  (100,0,2,0,0,0,'127.0.0.1',1475417963,'LOG_PURGE_CACHE',''),
-  (101,0,2,0,0,0,'127.0.0.1',1475417970,'LOG_RESYNC_POST_MARKING',''),
-  (102,0,2,0,0,0,'127.0.0.1',1475417976,'LOG_PURGE_SESSIONS',''),
-  (108,0,2,0,0,0,'127.0.0.1',1475420752,'LOG_CLEAR_ADMIN','');
+  (1,0,2,0,0,0,0,'127.0.0.1',1443381525,'LOG_INSTALL_INSTALLED','a:1:{i:0;s:5:\"3.1.6\";}'),
+  (2,0,2,0,0,0,0,'127.0.0.1',1443381592,'LOG_CONFIG_SERVER',''),
+  (3,0,2,0,0,0,0,'127.0.0.1',1443381692,'LOG_CONFIG_SETTINGS',''),
+  (4,0,2,0,0,0,0,'127.0.0.1',1443381739,'LOG_CONFIG_FEATURES',''),
+  (5,0,2,0,0,0,0,'127.0.0.1',1443381764,'LOG_CONFIG_SIGNATURE',''),
+  (6,0,2,0,0,0,0,'127.0.0.1',1443381802,'LOG_CONFIG_REGISTRATION',''),
+  (7,0,2,0,0,0,0,'127.0.0.1',1443381852,'LOG_CONFIG_SECURITY',''),
+  (8,0,2,0,0,0,0,'127.0.0.1',1443381897,'LOG_BOT_DELETE','a:1:{i:0;s:785:\"AdsBot [Google], Alexa [Bot], Alta Vista [Bot], Ask Jeeves [Bot], Baidu [Spider], Bing [Bot], Exabot [Bot], FAST Enterprise [Crawler], FAST WebCrawler [Crawler], Francis [Bot], Gigabot [Bot], Google Adsense [Bot], Google Desktop, Google Feedfetcher, Google [Bot], Heise IT-Markt [Crawler], Heritrix [Crawler], IBM Research [Bot], ICCrawler - ICjobs, ichiro [Crawler], Majestic-12 [Bot], Metager [Bot], MSN NewsBlogs, MSN [Bot], MSNbot Media, Nutch [Bot], Online link [Validator], psbot [Picsearch], Sensis [Crawler], SEO Crawler, Seoma [Crawler], SEOSearch [Crawler], Snappy [Bot], Steeler [Crawler], Telekom [Bot], TurnitinBot [Bot], Voyager [Bot], W3 [Sitesearch], W3C [Linkcheck], W3C [Validator], YaCy [Bot], Yahoo MMCrawler [Bot], Yahoo Slurp [Bot], Yahoo [Bot], YahooSeeker [Bot]\";}'),
+  (9,0,2,0,0,0,0,'127.0.0.1',1443381987,'LOG_EXT_ENABLE','a:1:{i:0;s:6:\"sr/etc\";}'),
+  (10,0,2,0,0,0,0,'127.0.0.1',1443381992,'LOG_EXT_ENABLE','a:1:{i:0;s:10:\"sr/pipebot\";}'),
+  (11,0,2,0,0,0,0,'127.0.0.1',1443382259,'LOG_STYLE_ADD','a:1:{i:0;s:25:\"prosilver Special Edition\";}'),
+  (12,0,2,0,0,0,0,'127.0.0.1',1443382275,'LOG_CONFIG_SETTINGS',''),
+  (13,0,2,0,0,0,0,'127.0.0.1',1443382406,'LOG_FORUM_DEL_FORUMS','a:1:{i:0;s:19:\"Your first category\";}'),
+  (26,0,2,0,0,0,0,'127.0.0.1',1443382992,'LOG_CONFIG_AUTH',''),
+  (27,0,2,0,0,0,0,'127.0.0.1',1443384005,'LOG_ADMIN_AUTH_SUCCESS',''),
+  (28,0,2,0,0,0,0,'127.0.0.1',1443384021,'LOG_CONFIG_SETTINGS',''),
+  (35,0,2,0,0,0,0,'127.0.0.1',1443532039,'LOG_CONFIG_SETTINGS',''),
+  (36,0,2,0,0,0,0,'127.0.0.1',1443532151,'LOG_CONFIG_SETTINGS',''),
+  (53,0,2,0,0,0,0,'127.0.0.1',1454516687,'LOG_USERS_ADDED','a:2:{i:0;s:14:\"Administrators\";i:1;s:8:\"rspanton\";}'),
+  (55,1,1,0,70,0,0,'127.0.0.1',1454516785,'LOG_SPLIT_SOURCE','a:1:{i:0;s:26:\"Problem starting our Robot\";}'),
+  (59,1,1,0,88,0,0,'127.0.0.1',1456411042,'LOG_SPLIT_SOURCE','a:1:{i:0;s:50:\"Ridiculously strange error - anyone else had it???\";}'),
+  (67,0,2,0,0,0,0,'127.0.0.1',1464791419,'LOG_CONFIG_SETTINGS',''),
+  (71,0,2,0,0,0,0,'127.0.0.1',1475415837,'LOG_CONFIG_SETTINGS',''),
+  (79,0,2,0,0,0,0,'127.0.0.1',1475416293,'LOG_FORUM_DEL_POSTS','a:1:{i:0;s:11:\"Programming\";}'),
+  (84,0,2,0,0,0,0,'127.0.0.1',1475416431,'LOG_FORUM_ADD','a:1:{i:0;s:18:\"General Discussion\";}'),
+  (85,0,2,0,0,0,0,'127.0.0.1',1475416549,'LOG_FORUM_ADD','a:1:{i:0;s:11:\"Programming\";}'),
+  (86,0,2,0,0,0,0,'127.0.0.1',1475416596,'LOG_FORUM_ADD','a:1:{i:0;s:9:\"Mechanics\";}'),
+  (87,0,2,0,0,0,0,'127.0.0.1',1475416639,'LOG_FORUM_ADD','a:1:{i:0;s:16:\"Teams on the web\";}'),
+  (88,0,2,0,0,0,0,'127.0.0.1',1475416646,'LOG_FORUM_MOVE_UP','a:2:{i:0;s:18:\"General Discussion\";i:1;s:11:\"Electronics\";}'),
+  (89,0,2,0,0,0,0,'127.0.0.1',1475416648,'LOG_FORUM_MOVE_UP','a:2:{i:0;s:11:\"Programming\";i:1;s:11:\"Electronics\";}'),
+  (90,0,2,0,0,0,0,'127.0.0.1',1475416675,'LOG_FORUM_ADD','a:1:{i:0;s:23:\"The Game (TODO: RENAME)\";}'),
+  (93,0,2,0,0,0,0,'127.0.0.1',1475417641,'LOG_ACL_ADD_FORUM_LOCAL_F_','a:2:{i:0;s:98:\"Electronics, General Discussion, Programming, Mechanics, Teams on the web, The Game (TODO: RENAME)\";i:1;s:41:\"<span class=\"sep\">Registered users</span>\";}'),
+  (94,0,2,0,0,0,0,'127.0.0.1',1475417853,'LOG_CONFIG_SETTINGS',''),
+  (95,0,2,0,0,0,0,'127.0.0.1',1475417887,'LOG_CONFIG_SETTINGS',''),
+  (96,0,2,0,0,0,0,'127.0.0.1',1475417943,'LOG_RESYNC_STATS',''),
+  (97,0,2,0,0,0,0,'127.0.0.1',1475417948,'LOG_RESYNC_POSTCOUNTS',''),
+  (98,0,2,0,0,0,0,'127.0.0.1',1475417952,'LOG_RESET_DATE',''),
+  (99,0,2,0,0,0,0,'127.0.0.1',1475417956,'LOG_RESET_ONLINE',''),
+  (100,0,2,0,0,0,0,'127.0.0.1',1475417963,'LOG_PURGE_CACHE',''),
+  (101,0,2,0,0,0,0,'127.0.0.1',1475417970,'LOG_RESYNC_POST_MARKING',''),
+  (102,0,2,0,0,0,0,'127.0.0.1',1475417976,'LOG_PURGE_SESSIONS',''),
+  (108,0,2,0,0,0,0,'127.0.0.1',1475420752,'LOG_CLEAR_ADMIN',''),
+  (109,0,1,0,0,0,0,'127.0.0.1',1541969656,'LOG_MODULE_ADD','a:1:{i:0;s:18:\"Help support phpBB\";}'),
+  (110,0,1,0,0,0,0,'',1541969657,'LOG_UPDATE_DATABASE','a:2:{i:0;s:5:\"3.1.6\";i:1;s:5:\"3.2.3\";}');
 /*!40000 ALTER TABLE `phpbb_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1841,7 +1888,7 @@ CREATE TABLE `phpbb_login_attempts` (
   `attempt_browser` varchar(150) COLLATE utf8_bin NOT NULL DEFAULT '',
   `attempt_forwarded_for` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
   `attempt_time` int(11) unsigned NOT NULL DEFAULT 0,
-  `user_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `user_id` int(10) unsigned NOT NULL DEFAULT 0,
   `username` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '0',
   `username_clean` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '0',
   KEY `att_ip` (`attempt_ip`,`attempt_time`),
@@ -2028,13 +2075,27 @@ INSERT INTO `phpbb_migrations` VALUES
   ('\\phpbb\\db\\migration\\data\\v310\\timezone_p2','a:1:{i:0;s:38:\"\\phpbb\\db\\migration\\data\\v310\\timezone\";}',1,1,'',1443381526,1443381526),
   ('\\phpbb\\db\\migration\\data\\v310\\topic_sort_username','a:1:{i:0;s:33:\"\\phpbb\\db\\migration\\data\\v310\\dev\";}',1,1,'',1443381526,1443381526),
   ('\\phpbb\\db\\migration\\data\\v310\\ucp_popuppm_module','a:1:{i:0;s:33:\"\\phpbb\\db\\migration\\data\\v310\\dev\";}',1,1,'',1443381526,1443381526),
+  ('\\phpbb\\db\\migration\\data\\v31x\\add_jabber_ssl_context_config_options','a:1:{i:0;s:35:\"\\phpbb\\db\\migration\\data\\v31x\\v3110\";}',1,1,'',1541969642,1541969642),
+  ('\\phpbb\\db\\migration\\data\\v31x\\add_latest_topics_index','a:1:{i:0;s:35:\"\\phpbb\\db\\migration\\data\\v31x\\v3110\";}',1,1,'',1541969642,1541969642),
+  ('\\phpbb\\db\\migration\\data\\v31x\\add_log_time_index','a:1:{i:0;s:34:\"\\phpbb\\db\\migration\\data\\v31x\\v319\";}',1,1,'',1541969641,1541969641),
+  ('\\phpbb\\db\\migration\\data\\v31x\\add_smtp_ssl_context_config_options','a:1:{i:0;s:35:\"\\phpbb\\db\\migration\\data\\v31x\\v3110\";}',1,1,'',1541969642,1541969642),
+  ('\\phpbb\\db\\migration\\data\\v31x\\increase_size_of_dateformat','a:1:{i:0;s:34:\"\\phpbb\\db\\migration\\data\\v31x\\v317\";}',1,1,'',1541969641,1541969641),
+  ('\\phpbb\\db\\migration\\data\\v31x\\increase_size_of_emotion','a:1:{i:0;s:35:\"\\phpbb\\db\\migration\\data\\v31x\\v3110\";}',1,1,'',1541969641,1541969642),
+  ('\\phpbb\\db\\migration\\data\\v31x\\m_pm_report','a:1:{i:0;s:37:\"\\phpbb\\db\\migration\\data\\v31x\\v316rc1\";}',1,1,'',1541969641,1541969641),
   ('\\phpbb\\db\\migration\\data\\v31x\\m_softdelete_global','a:1:{i:0;s:34:\"\\phpbb\\db\\migration\\data\\v31x\\v311\";}',1,1,'',1443381526,1443381526),
   ('\\phpbb\\db\\migration\\data\\v31x\\plupload_last_gc_dynamic','a:1:{i:0;s:34:\"\\phpbb\\db\\migration\\data\\v31x\\v312\";}',1,1,'',1443381526,1443381526),
   ('\\phpbb\\db\\migration\\data\\v31x\\profilefield_remove_underscore_from_alpha','a:1:{i:0;s:34:\"\\phpbb\\db\\migration\\data\\v31x\\v311\";}',1,1,'',1443381526,1443381526),
   ('\\phpbb\\db\\migration\\data\\v31x\\profilefield_yahoo_update_url','a:1:{i:0;s:34:\"\\phpbb\\db\\migration\\data\\v31x\\v312\";}',1,1,'',1443381526,1443381526),
+  ('\\phpbb\\db\\migration\\data\\v31x\\remove_duplicate_migrations','a:1:{i:0;s:35:\"\\phpbb\\db\\migration\\data\\v31x\\v3110\";}',1,1,'',1541969642,1541969642),
   ('\\phpbb\\db\\migration\\data\\v31x\\style_update','a:1:{i:0;s:34:\"\\phpbb\\db\\migration\\data\\v310\\gold\";}',1,1,'',1443381526,1443381526),
   ('\\phpbb\\db\\migration\\data\\v31x\\update_custom_bbcodes_with_idn','a:1:{i:0;s:34:\"\\phpbb\\db\\migration\\data\\v31x\\v312\";}',1,1,'',1443381526,1443381526),
+  ('\\phpbb\\db\\migration\\data\\v31x\\update_hashes','a:1:{i:0;s:35:\"\\phpbb\\db\\migration\\data\\v31x\\v3110\";}',1,1,'',1541969642,1541969642),
   ('\\phpbb\\db\\migration\\data\\v31x\\v311','a:2:{i:0;s:34:\"\\phpbb\\db\\migration\\data\\v310\\gold\";i:1;s:42:\"\\phpbb\\db\\migration\\data\\v31x\\style_update\";}',1,1,'',1443381526,1443381526),
+  ('\\phpbb\\db\\migration\\data\\v31x\\v3110','a:1:{i:0;s:38:\"\\phpbb\\db\\migration\\data\\v31x\\v3110rc1\";}',1,1,'',1541969641,1541969641),
+  ('\\phpbb\\db\\migration\\data\\v31x\\v3110rc1','a:1:{i:0;s:34:\"\\phpbb\\db\\migration\\data\\v31x\\v319\";}',1,1,'',1541969641,1541969641),
+  ('\\phpbb\\db\\migration\\data\\v31x\\v3111','a:1:{i:0;s:38:\"\\phpbb\\db\\migration\\data\\v31x\\v3111rc1\";}',1,1,'',1541969642,1541969642),
+  ('\\phpbb\\db\\migration\\data\\v31x\\v3111rc1','a:8:{i:0;s:35:\"\\phpbb\\db\\migration\\data\\v31x\\v3110\";i:1;s:48:\"\\phpbb\\db\\migration\\data\\v31x\\add_log_time_index\";i:2;s:54:\"\\phpbb\\db\\migration\\data\\v31x\\increase_size_of_emotion\";i:3;s:67:\"\\phpbb\\db\\migration\\data\\v31x\\add_jabber_ssl_context_config_options\";i:4;s:65:\"\\phpbb\\db\\migration\\data\\v31x\\add_smtp_ssl_context_config_options\";i:5;s:43:\"\\phpbb\\db\\migration\\data\\v31x\\update_hashes\";i:6;s:57:\"\\phpbb\\db\\migration\\data\\v31x\\remove_duplicate_migrations\";i:7;s:53:\"\\phpbb\\db\\migration\\data\\v31x\\add_latest_topics_index\";}',1,1,'',1541969642,1541969642),
+  ('\\phpbb\\db\\migration\\data\\v31x\\v3112','a:1:{i:0;s:35:\"\\phpbb\\db\\migration\\data\\v31x\\v3111\";}',1,1,'',1541969642,1541969642),
   ('\\phpbb\\db\\migration\\data\\v31x\\v312','a:1:{i:0;s:37:\"\\phpbb\\db\\migration\\data\\v31x\\v312rc1\";}',1,1,'',1443381526,1443381526),
   ('\\phpbb\\db\\migration\\data\\v31x\\v312rc1','a:2:{i:0;s:34:\"\\phpbb\\db\\migration\\data\\v31x\\v311\";i:1;s:49:\"\\phpbb\\db\\migration\\data\\v31x\\m_softdelete_global\";}',1,1,'',1443381526,1443381526),
   ('\\phpbb\\db\\migration\\data\\v31x\\v313','a:1:{i:0;s:37:\"\\phpbb\\db\\migration\\data\\v31x\\v313rc2\";}',1,1,'',1443381526,1443381526),
@@ -2046,7 +2107,59 @@ INSERT INTO `phpbb_migrations` VALUES
   ('\\phpbb\\db\\migration\\data\\v31x\\v315','a:1:{i:0;s:37:\"\\phpbb\\db\\migration\\data\\v31x\\v315rc1\";}',1,1,'',1443381525,1443381525),
   ('\\phpbb\\db\\migration\\data\\v31x\\v315rc1','a:1:{i:0;s:34:\"\\phpbb\\db\\migration\\data\\v31x\\v314\";}',1,1,'',1443381526,1443381526),
   ('\\phpbb\\db\\migration\\data\\v31x\\v316','a:1:{i:0;s:37:\"\\phpbb\\db\\migration\\data\\v31x\\v316rc1\";}',1,1,'',1443381526,1443381526),
-  ('\\phpbb\\db\\migration\\data\\v31x\\v316rc1','a:1:{i:0;s:34:\"\\phpbb\\db\\migration\\data\\v31x\\v315\";}',1,1,'',1443381526,1443381526);
+  ('\\phpbb\\db\\migration\\data\\v31x\\v316rc1','a:1:{i:0;s:34:\"\\phpbb\\db\\migration\\data\\v31x\\v315\";}',1,1,'',1443381526,1443381526),
+  ('\\phpbb\\db\\migration\\data\\v31x\\v317','a:1:{i:0;s:37:\"\\phpbb\\db\\migration\\data\\v31x\\v317rc1\";}',1,1,'',1541969641,1541969641),
+  ('\\phpbb\\db\\migration\\data\\v31x\\v317pl1','a:1:{i:0;s:34:\"\\phpbb\\db\\migration\\data\\v31x\\v317\";}',1,1,'',1541969641,1541969641),
+  ('\\phpbb\\db\\migration\\data\\v31x\\v317rc1','a:2:{i:0;s:41:\"\\phpbb\\db\\migration\\data\\v31x\\m_pm_report\";i:1;s:34:\"\\phpbb\\db\\migration\\data\\v31x\\v316\";}',1,1,'',1541969641,1541969641),
+  ('\\phpbb\\db\\migration\\data\\v31x\\v318','a:1:{i:0;s:37:\"\\phpbb\\db\\migration\\data\\v31x\\v318rc1\";}',1,1,'',1541969641,1541969641),
+  ('\\phpbb\\db\\migration\\data\\v31x\\v318rc1','a:2:{i:0;s:57:\"\\phpbb\\db\\migration\\data\\v31x\\increase_size_of_dateformat\";i:1;s:37:\"\\phpbb\\db\\migration\\data\\v31x\\v317pl1\";}',1,1,'',1541969641,1541969641),
+  ('\\phpbb\\db\\migration\\data\\v31x\\v319','a:1:{i:0;s:37:\"\\phpbb\\db\\migration\\data\\v31x\\v319rc1\";}',1,1,'',1541969641,1541969641),
+  ('\\phpbb\\db\\migration\\data\\v31x\\v319rc1','a:1:{i:0;s:34:\"\\phpbb\\db\\migration\\data\\v31x\\v318\";}',1,1,'',1541969641,1541969641),
+  ('\\phpbb\\db\\migration\\data\\v320\\add_help_phpbb','a:1:{i:0;s:37:\"\\phpbb\\db\\migration\\data\\v320\\v320rc1\";}',1,1,'',1541969655,1541969656),
+  ('\\phpbb\\db\\migration\\data\\v320\\allowed_schemes_links','a:1:{i:0;s:33:\"\\phpbb\\db\\migration\\data\\v320\\dev\";}',1,1,'',1541969642,1541969642),
+  ('\\phpbb\\db\\migration\\data\\v320\\announce_global_permission','a:1:{i:0;s:33:\"\\phpbb\\db\\migration\\data\\v320\\dev\";}',1,1,'',1541969643,1541969643),
+  ('\\phpbb\\db\\migration\\data\\v320\\cookie_notice','a:1:{i:0;s:37:\"\\phpbb\\db\\migration\\data\\v320\\v320rc2\";}',1,1,'',1541969656,1541969656),
+  ('\\phpbb\\db\\migration\\data\\v320\\default_data_type_ids','a:2:{i:0;s:36:\"\\phpbb\\db\\migration\\data\\v320\\v320a2\";i:1;s:42:\"\\phpbb\\db\\migration\\data\\v320\\oauth_states\";}',1,1,'',1541969644,1541969655),
+  ('\\phpbb\\db\\migration\\data\\v320\\dev','a:1:{i:0;s:34:\"\\phpbb\\db\\migration\\data\\v31x\\v316\";}',1,1,'',1541969642,1541969642),
+  ('\\phpbb\\db\\migration\\data\\v320\\font_awesome_update','a:1:{i:0;s:33:\"\\phpbb\\db\\migration\\data\\v320\\dev\";}',1,1,'',1541969643,1541969643),
+  ('\\phpbb\\db\\migration\\data\\v320\\icons_alt','a:1:{i:0;s:33:\"\\phpbb\\db\\migration\\data\\v320\\dev\";}',1,1,'',1541969643,1541969643),
+  ('\\phpbb\\db\\migration\\data\\v320\\log_post_id','a:1:{i:0;s:33:\"\\phpbb\\db\\migration\\data\\v320\\dev\";}',1,1,'',1541969643,1541969644),
+  ('\\phpbb\\db\\migration\\data\\v320\\notifications_board','a:1:{i:0;s:33:\"\\phpbb\\db\\migration\\data\\v320\\dev\";}',1,1,'',1541969644,1541969644),
+  ('\\phpbb\\db\\migration\\data\\v320\\oauth_states','a:1:{i:0;s:49:\"\\phpbb\\db\\migration\\data\\v310\\auth_provider_oauth\";}',1,1,'',1541969644,1541969644),
+  ('\\phpbb\\db\\migration\\data\\v320\\remote_upload_validation','a:1:{i:0;s:36:\"\\phpbb\\db\\migration\\data\\v320\\v320a2\";}',1,1,'',1541969655,1541969655),
+  ('\\phpbb\\db\\migration\\data\\v320\\remove_outdated_media','a:1:{i:0;s:33:\"\\phpbb\\db\\migration\\data\\v320\\dev\";}',1,1,'',1541969644,1541969644),
+  ('\\phpbb\\db\\migration\\data\\v320\\remove_profilefield_wlm','a:1:{i:0;s:33:\"\\phpbb\\db\\migration\\data\\v320\\dev\";}',1,1,'',1541969643,1541969643),
+  ('\\phpbb\\db\\migration\\data\\v320\\report_id_auto_increment','a:1:{i:0;s:51:\"\\phpbb\\db\\migration\\data\\v320\\default_data_type_ids\";}',1,1,'',1541969655,1541969655),
+  ('\\phpbb\\db\\migration\\data\\v320\\text_reparser','a:2:{i:0;s:48:\"\\phpbb\\db\\migration\\data\\v310\\contact_admin_form\";i:1;s:51:\"\\phpbb\\db\\migration\\data\\v320\\allowed_schemes_links\";}',1,1,'',1541969642,1541969643),
+  ('\\phpbb\\db\\migration\\data\\v320\\v320','a:2:{i:0;s:54:\"\\phpbb\\db\\migration\\data\\v31x\\increase_size_of_emotion\";i:1;s:43:\"\\phpbb\\db\\migration\\data\\v320\\cookie_notice\";}',1,1,'',1541969656,1541969656),
+  ('\\phpbb\\db\\migration\\data\\v320\\v320a1','a:9:{i:0;s:33:\"\\phpbb\\db\\migration\\data\\v320\\dev\";i:1;s:51:\"\\phpbb\\db\\migration\\data\\v320\\allowed_schemes_links\";i:2;s:56:\"\\phpbb\\db\\migration\\data\\v320\\announce_global_permission\";i:3;s:53:\"\\phpbb\\db\\migration\\data\\v320\\remove_profilefield_wlm\";i:4;s:49:\"\\phpbb\\db\\migration\\data\\v320\\font_awesome_update\";i:5;s:39:\"\\phpbb\\db\\migration\\data\\v320\\icons_alt\";i:6;s:41:\"\\phpbb\\db\\migration\\data\\v320\\log_post_id\";i:7;s:51:\"\\phpbb\\db\\migration\\data\\v320\\remove_outdated_media\";i:8;s:49:\"\\phpbb\\db\\migration\\data\\v320\\notifications_board\";}',1,1,'',1541969644,1541969644),
+  ('\\phpbb\\db\\migration\\data\\v320\\v320a2','a:3:{i:0;s:37:\"\\phpbb\\db\\migration\\data\\v31x\\v317rc1\";i:1;s:43:\"\\phpbb\\db\\migration\\data\\v320\\text_reparser\";i:2;s:36:\"\\phpbb\\db\\migration\\data\\v320\\v320a1\";}',1,1,'',1541969644,1541969644),
+  ('\\phpbb\\db\\migration\\data\\v320\\v320b1','a:4:{i:0;s:37:\"\\phpbb\\db\\migration\\data\\v31x\\v317pl1\";i:1;s:36:\"\\phpbb\\db\\migration\\data\\v320\\v320a2\";i:2;s:57:\"\\phpbb\\db\\migration\\data\\v31x\\increase_size_of_dateformat\";i:3;s:51:\"\\phpbb\\db\\migration\\data\\v320\\default_data_type_ids\";}',1,1,'',1541969655,1541969655),
+  ('\\phpbb\\db\\migration\\data\\v320\\v320b2','a:3:{i:0;s:34:\"\\phpbb\\db\\migration\\data\\v31x\\v318\";i:1;s:36:\"\\phpbb\\db\\migration\\data\\v320\\v320b1\";i:2;s:54:\"\\phpbb\\db\\migration\\data\\v320\\remote_upload_validation\";}',1,1,'',1541969655,1541969655),
+  ('\\phpbb\\db\\migration\\data\\v320\\v320rc1','a:3:{i:0;s:34:\"\\phpbb\\db\\migration\\data\\v31x\\v319\";i:1;s:54:\"\\phpbb\\db\\migration\\data\\v320\\report_id_auto_increment\";i:2;s:36:\"\\phpbb\\db\\migration\\data\\v320\\v320b2\";}',1,1,'',1541969655,1541969655),
+  ('\\phpbb\\db\\migration\\data\\v320\\v320rc2','a:3:{i:0;s:57:\"\\phpbb\\db\\migration\\data\\v31x\\remove_duplicate_migrations\";i:1;s:48:\"\\phpbb\\db\\migration\\data\\v31x\\add_log_time_index\";i:2;s:44:\"\\phpbb\\db\\migration\\data\\v320\\add_help_phpbb\";}',1,1,'',1541969656,1541969656),
+  ('\\phpbb\\db\\migration\\data\\v32x\\cookie_notice_p2','a:1:{i:0;s:34:\"\\phpbb\\db\\migration\\data\\v320\\v320\";}',1,1,'',0,0),
+  ('\\phpbb\\db\\migration\\data\\v32x\\email_force_sender','a:1:{i:0;s:34:\"\\phpbb\\db\\migration\\data\\v32x\\v321\";}',1,1,'',1541969657,1541969657),
+  ('\\phpbb\\db\\migration\\data\\v32x\\enable_accurate_pm_button','a:1:{i:0;s:34:\"\\phpbb\\db\\migration\\data\\v32x\\v322\";}',1,1,'',1541969657,1541969657),
+  ('\\phpbb\\db\\migration\\data\\v32x\\f_list_topics_permission_add','a:1:{i:0;s:34:\"\\phpbb\\db\\migration\\data\\v32x\\v321\";}',1,1,'',1541969657,1541969657),
+  ('\\phpbb\\db\\migration\\data\\v32x\\fix_user_styles','a:1:{i:0;s:34:\"\\phpbb\\db\\migration\\data\\v320\\v320\";}',1,1,'',1541969657,1541969657),
+  ('\\phpbb\\db\\migration\\data\\v32x\\load_user_activity_limit','a:1:{i:0;s:34:\"\\phpbb\\db\\migration\\data\\v320\\v320\";}',1,1,'',1541969656,1541969656),
+  ('\\phpbb\\db\\migration\\data\\v32x\\merge_duplicate_bbcodes','a:0:{}',1,1,'',1541969657,1541969657),
+  ('\\phpbb\\db\\migration\\data\\v32x\\update_prosilver_bitfield','a:1:{i:0;s:34:\"\\phpbb\\db\\migration\\data\\v32x\\v321\";}',1,1,'',1541969657,1541969657),
+  ('\\phpbb\\db\\migration\\data\\v32x\\user_notifications_table_index_p1','a:1:{i:0;s:46:\"\\phpbb\\db\\migration\\data\\v32x\\cookie_notice_p2\";}',1,1,'',1541969656,1541969656),
+  ('\\phpbb\\db\\migration\\data\\v32x\\user_notifications_table_index_p2','a:1:{i:0;s:63:\"\\phpbb\\db\\migration\\data\\v32x\\user_notifications_table_index_p1\";}',1,1,'',1541969656,1541969656),
+  ('\\phpbb\\db\\migration\\data\\v32x\\user_notifications_table_index_p3','a:1:{i:0;s:63:\"\\phpbb\\db\\migration\\data\\v32x\\user_notifications_table_index_p2\";}',1,1,'',1541969656,1541969656),
+  ('\\phpbb\\db\\migration\\data\\v32x\\user_notifications_table_reduce_column_sizes','a:1:{i:0;s:63:\"\\phpbb\\db\\migration\\data\\v32x\\user_notifications_table_index_p3\";}',1,1,'',1541969656,1541969656),
+  ('\\phpbb\\db\\migration\\data\\v32x\\user_notifications_table_remove_duplicates','a:1:{i:0;s:65:\"\\phpbb\\db\\migration\\data\\v32x\\user_notifications_table_temp_index\";}',1,1,'',1541969656,1541969656),
+  ('\\phpbb\\db\\migration\\data\\v32x\\user_notifications_table_temp_index','a:1:{i:0;s:74:\"\\phpbb\\db\\migration\\data\\v32x\\user_notifications_table_reduce_column_sizes\";}',1,1,'',1541969656,1541969656),
+  ('\\phpbb\\db\\migration\\data\\v32x\\user_notifications_table_unique_index','a:1:{i:0;s:72:\"\\phpbb\\db\\migration\\data\\v32x\\user_notifications_table_remove_duplicates\";}',1,1,'',1541969656,1541969657),
+  ('\\phpbb\\db\\migration\\data\\v32x\\v321','a:2:{i:0;s:35:\"\\phpbb\\db\\migration\\data\\v31x\\v3111\";i:1;s:37:\"\\phpbb\\db\\migration\\data\\v32x\\v321rc1\";}',1,1,'',1541969657,1541969657),
+  ('\\phpbb\\db\\migration\\data\\v32x\\v321rc1','a:4:{i:0;s:34:\"\\phpbb\\db\\migration\\data\\v320\\v320\";i:1;s:38:\"\\phpbb\\db\\migration\\data\\v31x\\v3111rc1\";i:2;s:54:\"\\phpbb\\db\\migration\\data\\v32x\\load_user_activity_limit\";i:3;s:67:\"\\phpbb\\db\\migration\\data\\v32x\\user_notifications_table_unique_index\";}',1,1,'',1541969657,1541969657),
+  ('\\phpbb\\db\\migration\\data\\v32x\\v322','a:2:{i:0;s:35:\"\\phpbb\\db\\migration\\data\\v31x\\v3112\";i:1;s:37:\"\\phpbb\\db\\migration\\data\\v32x\\v322rc1\";}',1,1,'',1541969657,1541969657),
+  ('\\phpbb\\db\\migration\\data\\v32x\\v322rc1','a:5:{i:0;s:45:\"\\phpbb\\db\\migration\\data\\v32x\\fix_user_styles\";i:1;s:55:\"\\phpbb\\db\\migration\\data\\v32x\\update_prosilver_bitfield\";i:2;s:48:\"\\phpbb\\db\\migration\\data\\v32x\\email_force_sender\";i:3;s:58:\"\\phpbb\\db\\migration\\data\\v32x\\f_list_topics_permission_add\";i:4;s:53:\"\\phpbb\\db\\migration\\data\\v32x\\merge_duplicate_bbcodes\";}',1,1,'',1541969657,1541969657),
+  ('\\phpbb\\db\\migration\\data\\v32x\\v323','a:1:{i:0;s:37:\"\\phpbb\\db\\migration\\data\\v32x\\v323rc2\";}',1,1,'',1541969657,1541969657),
+  ('\\phpbb\\db\\migration\\data\\v32x\\v323rc1','a:1:{i:0;s:55:\"\\phpbb\\db\\migration\\data\\v32x\\enable_accurate_pm_button\";}',1,1,'',1541969657,1541969657),
+  ('\\phpbb\\db\\migration\\data\\v32x\\v323rc2','a:1:{i:0;s:37:\"\\phpbb\\db\\migration\\data\\v32x\\v323rc1\";}',1,1,'',1541969657,1541969657);
 /*!40000 ALTER TABLE `phpbb_migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2059,7 +2172,7 @@ DROP TABLE IF EXISTS `phpbb_moderator_cache`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `phpbb_moderator_cache` (
   `forum_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
-  `user_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `user_id` int(10) unsigned NOT NULL DEFAULT 0,
   `username` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
   `group_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
   `group_name` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
@@ -2101,7 +2214,7 @@ CREATE TABLE `phpbb_modules` (
   KEY `left_right_id` (`left_id`,`right_id`),
   KEY `module_enabled` (`module_enabled`),
   KEY `class_left_id` (`module_class`,`left_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=207 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=208 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2226,7 +2339,6 @@ INSERT INTO `phpbb_modules` VALUES
   (113,1,1,'acp_reasons','acp',30,271,272,'ACP_MANAGE_REASONS','main','acl_a_reasons'),
   (114,1,1,'acp_search','acp',5,61,62,'ACP_SEARCH_SETTINGS','settings','acl_a_search'),
   (115,1,1,'acp_search','acp',27,255,256,'ACP_SEARCH_INDEX','index','acl_a_search'),
-  (116,1,1,'acp_send_statistics','acp',5,63,64,'ACP_SEND_STATISTICS','send_statistics','acl_a_server'),
   (117,1,1,'acp_styles','acp',22,229,230,'ACP_STYLES','style','acl_a_styles'),
   (118,1,1,'acp_styles','acp',22,231,232,'ACP_STYLES_INSTALL','install','acl_a_styles'),
   (119,1,1,'acp_update','acp',29,261,262,'ACP_VERSION_CHECK','version_check','acl_a_board'),
@@ -2272,9 +2384,9 @@ INSERT INTO `phpbb_modules` VALUES
   (159,1,1,'mcp_main','mcp',143,8,9,'MCP_MAIN_POST_DETAILS','post_details','acl_m_,$id || (!$id && aclf_m_)'),
   (160,1,1,'mcp_notes','mcp',146,38,39,'MCP_NOTES_FRONT','front',''),
   (161,1,1,'mcp_notes','mcp',146,40,41,'MCP_NOTES_USER','user_notes',''),
-  (162,1,1,'mcp_pm_reports','mcp',145,30,31,'MCP_PM_REPORTS_OPEN','pm_reports','aclf_m_report'),
-  (163,1,1,'mcp_pm_reports','mcp',145,32,33,'MCP_PM_REPORTS_CLOSED','pm_reports_closed','aclf_m_report'),
-  (164,1,1,'mcp_pm_reports','mcp',145,34,35,'MCP_PM_REPORT_DETAILS','pm_report_details','aclf_m_report'),
+  (162,1,1,'mcp_pm_reports','mcp',145,30,31,'MCP_PM_REPORTS_OPEN','pm_reports','acl_m_pm_report'),
+  (163,1,1,'mcp_pm_reports','mcp',145,32,33,'MCP_PM_REPORTS_CLOSED','pm_reports_closed','acl_m_pm_report'),
+  (164,1,1,'mcp_pm_reports','mcp',145,34,35,'MCP_PM_REPORT_DETAILS','pm_report_details','acl_m_pm_report'),
   (165,1,1,'mcp_queue','mcp',144,12,13,'MCP_QUEUE_UNAPPROVED_TOPICS','unapproved_topics','aclf_m_approve'),
   (166,1,1,'mcp_queue','mcp',144,14,15,'MCP_QUEUE_UNAPPROVED_POSTS','unapproved_posts','aclf_m_approve'),
   (167,1,1,'mcp_queue','mcp',144,16,17,'MCP_QUEUE_DELETED_TOPICS','deleted_topics','aclf_m_approve'),
@@ -2302,7 +2414,7 @@ INSERT INTO `phpbb_modules` VALUES
   (189,1,1,'ucp_main','ucp',177,6,7,'UCP_MAIN_BOOKMARKS','bookmarks','cfg_allow_bookmarks'),
   (190,1,1,'ucp_main','ucp',177,8,9,'UCP_MAIN_DRAFTS','drafts',''),
   (191,1,1,'ucp_notifications','ucp',179,36,37,'UCP_NOTIFICATION_OPTIONS','notification_options',''),
-  (192,1,1,'ucp_notifications','ucp',177,12,13,'UCP_NOTIFICATION_LIST','notification_list',''),
+  (192,1,1,'ucp_notifications','ucp',177,12,13,'UCP_NOTIFICATION_LIST','notification_list','cfg_allow_board_notifications'),
   (193,1,0,'ucp_pm','ucp',180,40,41,'UCP_PM_VIEW','view','cfg_allow_privmsg'),
   (194,1,1,'ucp_pm','ucp',180,42,43,'UCP_PM_COMPOSE','compose','cfg_allow_privmsg'),
   (195,1,1,'ucp_pm','ucp',180,44,45,'UCP_PM_DRAFTS','drafts','cfg_allow_privmsg'),
@@ -2316,7 +2428,8 @@ INSERT INTO `phpbb_modules` VALUES
   (203,1,1,'ucp_profile','ucp',178,22,23,'UCP_PROFILE_REG_DETAILS','reg_details',''),
   (204,1,1,'ucp_profile','ucp',178,24,25,'UCP_PROFILE_AUTOLOGIN_KEYS','autologin_keys',''),
   (205,1,1,'ucp_zebra','ucp',182,56,57,'UCP_ZEBRA_FRIENDS','friends',''),
-  (206,1,1,'ucp_zebra','ucp',182,58,59,'UCP_ZEBRA_FOES','foes','');
+  (206,1,1,'ucp_zebra','ucp',182,58,59,'UCP_ZEBRA_FOES','foes',''),
+  (207,1,1,'acp_help_phpbb','acp',5,63,64,'ACP_HELP_PHPBB','help_phpbb','acl_a_server');
 /*!40000 ALTER TABLE `phpbb_modules` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2376,7 +2489,7 @@ CREATE TABLE `phpbb_notifications` (
   `notification_type_id` smallint(4) unsigned NOT NULL DEFAULT 0,
   `item_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
   `item_parent_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
-  `user_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `user_id` int(10) unsigned NOT NULL DEFAULT 0,
   `notification_read` tinyint(1) unsigned NOT NULL DEFAULT 0,
   `notification_time` int(11) unsigned NOT NULL DEFAULT 1,
   `notification_data` text COLLATE utf8_bin NOT NULL,
@@ -2403,7 +2516,7 @@ DROP TABLE IF EXISTS `phpbb_oauth_accounts`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `phpbb_oauth_accounts` (
-  `user_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `user_id` int(10) unsigned NOT NULL DEFAULT 0,
   `provider` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
   `oauth_provider_id` text COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`user_id`,`provider`)
@@ -2420,6 +2533,32 @@ LOCK TABLES `phpbb_oauth_accounts` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `phpbb_oauth_states`
+--
+
+DROP TABLE IF EXISTS `phpbb_oauth_states`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `phpbb_oauth_states` (
+  `user_id` int(10) unsigned NOT NULL DEFAULT 0,
+  `session_id` char(32) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `provider` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `oauth_state` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
+  KEY `user_id` (`user_id`),
+  KEY `provider` (`provider`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `phpbb_oauth_states`
+--
+
+LOCK TABLES `phpbb_oauth_states` WRITE;
+/*!40000 ALTER TABLE `phpbb_oauth_states` DISABLE KEYS */;
+/*!40000 ALTER TABLE `phpbb_oauth_states` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `phpbb_oauth_tokens`
 --
 
@@ -2427,7 +2566,7 @@ DROP TABLE IF EXISTS `phpbb_oauth_tokens`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `phpbb_oauth_tokens` (
-  `user_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `user_id` int(10) unsigned NOT NULL DEFAULT 0,
   `session_id` char(32) COLLATE utf8_bin NOT NULL DEFAULT '',
   `provider` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
   `oauth_token` mediumtext COLLATE utf8_bin NOT NULL,
@@ -2454,7 +2593,7 @@ DROP TABLE IF EXISTS `phpbb_poll_options`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `phpbb_poll_options` (
   `poll_option_id` tinyint(4) NOT NULL DEFAULT 0,
-  `topic_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `topic_id` int(10) unsigned NOT NULL DEFAULT 0,
   `poll_option_text` text COLLATE utf8_bin NOT NULL,
   `poll_option_total` mediumint(8) unsigned NOT NULL DEFAULT 0,
   KEY `poll_opt_id` (`poll_option_id`),
@@ -2479,9 +2618,9 @@ DROP TABLE IF EXISTS `phpbb_poll_votes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `phpbb_poll_votes` (
-  `topic_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `topic_id` int(10) unsigned NOT NULL DEFAULT 0,
   `poll_option_id` tinyint(4) NOT NULL DEFAULT 0,
-  `vote_user_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `vote_user_id` int(10) unsigned NOT NULL DEFAULT 0,
   `vote_user_ip` varchar(40) COLLATE utf8_bin NOT NULL DEFAULT '',
   KEY `topic_id` (`topic_id`),
   KEY `vote_user_id` (`vote_user_id`),
@@ -2506,10 +2645,10 @@ DROP TABLE IF EXISTS `phpbb_posts`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `phpbb_posts` (
-  `post_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  `topic_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `post_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `topic_id` int(10) unsigned NOT NULL DEFAULT 0,
   `forum_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
-  `poster_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `poster_id` int(10) unsigned NOT NULL DEFAULT 0,
   `icon_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
   `poster_ip` varchar(40) COLLATE utf8_bin NOT NULL DEFAULT '',
   `post_time` int(11) unsigned NOT NULL DEFAULT 0,
@@ -2528,13 +2667,13 @@ CREATE TABLE `phpbb_posts` (
   `post_postcount` tinyint(1) unsigned NOT NULL DEFAULT 1,
   `post_edit_time` int(11) unsigned NOT NULL DEFAULT 0,
   `post_edit_reason` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `post_edit_user` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `post_edit_user` int(10) unsigned NOT NULL DEFAULT 0,
   `post_edit_count` smallint(4) unsigned NOT NULL DEFAULT 0,
   `post_edit_locked` tinyint(1) unsigned NOT NULL DEFAULT 0,
   `post_visibility` tinyint(3) NOT NULL DEFAULT 0,
   `post_delete_time` int(11) unsigned NOT NULL DEFAULT 0,
   `post_delete_reason` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `post_delete_user` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `post_delete_user` int(10) unsigned NOT NULL DEFAULT 0,
   PRIMARY KEY (`post_id`),
   KEY `forum_id` (`forum_id`),
   KEY `topic_id` (`topic_id`),
@@ -2563,9 +2702,9 @@ DROP TABLE IF EXISTS `phpbb_privmsgs`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `phpbb_privmsgs` (
-  `msg_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `msg_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `root_level` mediumint(8) unsigned NOT NULL DEFAULT 0,
-  `author_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `author_id` int(10) unsigned NOT NULL DEFAULT 0,
   `icon_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
   `author_ip` varchar(40) COLLATE utf8_bin NOT NULL DEFAULT '',
   `message_time` int(11) unsigned NOT NULL DEFAULT 0,
@@ -2576,7 +2715,7 @@ CREATE TABLE `phpbb_privmsgs` (
   `message_subject` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
   `message_text` mediumtext COLLATE utf8_bin NOT NULL,
   `message_edit_reason` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `message_edit_user` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `message_edit_user` int(10) unsigned NOT NULL DEFAULT 0,
   `message_attachment` tinyint(1) unsigned NOT NULL DEFAULT 0,
   `bbcode_bitfield` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
   `bbcode_uid` varchar(8) COLLATE utf8_bin NOT NULL DEFAULT '',
@@ -2611,7 +2750,7 @@ DROP TABLE IF EXISTS `phpbb_privmsgs_folder`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `phpbb_privmsgs_folder` (
   `folder_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `user_id` int(10) unsigned NOT NULL DEFAULT 0,
   `folder_name` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
   `pm_count` mediumint(8) unsigned NOT NULL DEFAULT 0,
   PRIMARY KEY (`folder_id`),
@@ -2637,11 +2776,11 @@ DROP TABLE IF EXISTS `phpbb_privmsgs_rules`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `phpbb_privmsgs_rules` (
   `rule_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `user_id` int(10) unsigned NOT NULL DEFAULT 0,
   `rule_check` mediumint(8) unsigned NOT NULL DEFAULT 0,
   `rule_connection` mediumint(8) unsigned NOT NULL DEFAULT 0,
   `rule_string` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `rule_user_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `rule_user_id` int(10) unsigned NOT NULL DEFAULT 0,
   `rule_group_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
   `rule_action` mediumint(8) unsigned NOT NULL DEFAULT 0,
   `rule_folder_id` int(11) NOT NULL DEFAULT 0,
@@ -2667,9 +2806,9 @@ DROP TABLE IF EXISTS `phpbb_privmsgs_to`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `phpbb_privmsgs_to` (
-  `msg_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
-  `user_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
-  `author_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `msg_id` int(10) unsigned NOT NULL DEFAULT 0,
+  `user_id` int(10) unsigned NOT NULL DEFAULT 0,
+  `author_id` int(10) unsigned NOT NULL DEFAULT 0,
   `pm_deleted` tinyint(1) unsigned NOT NULL DEFAULT 0,
   `pm_new` tinyint(1) unsigned NOT NULL DEFAULT 1,
   `pm_unread` tinyint(1) unsigned NOT NULL DEFAULT 1,
@@ -2743,7 +2882,6 @@ INSERT INTO `phpbb_profile_fields` VALUES
   (4,'phpbb_occupation','profilefields.type.text','phpbb_occupation','3|30','2','500','','','.*',0,0,0,0,0,4,1,0,0,0,0,0,'',''),
   (5,'phpbb_aol','profilefields.type.string','phpbb_aol','40','5','255','','','.*',0,0,0,0,0,5,1,1,0,1,1,1,'',''),
   (6,'phpbb_icq','profilefields.type.string','phpbb_icq','20','3','15','','','[0-9]+',0,0,0,0,0,6,1,1,0,1,1,1,'SEND_ICQ_MESSAGE','https://www.icq.com/people/%s/'),
-  (7,'phpbb_wlm','profilefields.type.string','phpbb_wlm','40','5','255','','','.*',0,0,0,0,0,7,1,1,0,1,1,1,'',''),
   (8,'phpbb_yahoo','profilefields.type.string','phpbb_yahoo','40','5','255','','','.*',0,0,0,0,0,8,1,1,0,1,1,1,'SEND_YIM_MESSAGE','ymsgr:sendim?%s'),
   (9,'phpbb_facebook','profilefields.type.string','phpbb_facebook','20','5','50','','','[\\w.]+',0,0,0,0,1,9,1,1,0,1,1,1,'VIEW_FACEBOOK_PROFILE','http://facebook.com/%s/'),
   (10,'phpbb_twitter','profilefields.type.string','phpbb_twitter','20','1','15','','','[\\w_]+',0,0,0,0,1,10,1,1,0,1,1,1,'VIEW_TWITTER_PROFILE','http://twitter.com/%s'),
@@ -2761,7 +2899,7 @@ DROP TABLE IF EXISTS `phpbb_profile_fields_data`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `phpbb_profile_fields_data` (
-  `user_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `user_id` int(10) unsigned NOT NULL DEFAULT 0,
   `pf_phpbb_interests` mediumtext COLLATE utf8_bin NOT NULL,
   `pf_phpbb_occupation` mediumtext COLLATE utf8_bin NOT NULL,
   `pf_phpbb_location` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
@@ -2772,7 +2910,6 @@ CREATE TABLE `phpbb_profile_fields_data` (
   `pf_phpbb_facebook` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
   `pf_phpbb_twitter` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
   `pf_phpbb_skype` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `pf_phpbb_wlm` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
   `pf_phpbb_yahoo` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
   `pf_phpbb_aol` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
   PRIMARY KEY (`user_id`)
@@ -2844,7 +2981,6 @@ INSERT INTO `phpbb_profile_lang` VALUES
   (4,1,'OCCUPATION','',''),
   (5,1,'AOL','',''),
   (6,1,'ICQ','',''),
-  (7,1,'WLM','',''),
   (8,1,'YAHOO','',''),
   (9,1,'FACEBOOK','',''),
   (10,1,'TWITTER','',''),
@@ -2890,15 +3026,15 @@ DROP TABLE IF EXISTS `phpbb_reports`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `phpbb_reports` (
-  `report_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `report_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `reason_id` smallint(4) unsigned NOT NULL DEFAULT 0,
-  `post_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
-  `user_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `post_id` int(10) unsigned NOT NULL DEFAULT 0,
+  `user_id` int(10) unsigned NOT NULL DEFAULT 0,
   `user_notify` tinyint(1) unsigned NOT NULL DEFAULT 0,
   `report_closed` tinyint(1) unsigned NOT NULL DEFAULT 0,
   `report_time` int(11) unsigned NOT NULL DEFAULT 0,
   `report_text` mediumtext COLLATE utf8_bin NOT NULL,
-  `pm_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `pm_id` int(10) unsigned NOT NULL DEFAULT 0,
   `reported_post_enable_bbcode` tinyint(1) unsigned NOT NULL DEFAULT 1,
   `reported_post_enable_smilies` tinyint(1) unsigned NOT NULL DEFAULT 1,
   `reported_post_enable_magic_url` tinyint(1) unsigned NOT NULL DEFAULT 1,
@@ -2983,7 +3119,7 @@ DROP TABLE IF EXISTS `phpbb_search_wordlist`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `phpbb_search_wordlist` (
-  `word_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `word_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `word_text` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
   `word_common` tinyint(1) unsigned NOT NULL DEFAULT 0,
   `word_count` mediumint(8) unsigned NOT NULL DEFAULT 0,
@@ -3010,8 +3146,8 @@ DROP TABLE IF EXISTS `phpbb_search_wordmatch`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `phpbb_search_wordmatch` (
-  `post_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
-  `word_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `post_id` int(10) unsigned NOT NULL DEFAULT 0,
+  `word_id` int(10) unsigned NOT NULL DEFAULT 0,
   `title_match` tinyint(1) unsigned NOT NULL DEFAULT 0,
   UNIQUE KEY `un_mtch` (`word_id`,`post_id`,`title_match`),
   KEY `word_id` (`word_id`),
@@ -3037,7 +3173,7 @@ DROP TABLE IF EXISTS `phpbb_sessions`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `phpbb_sessions` (
   `session_id` char(32) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `session_user_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `session_user_id` int(10) unsigned NOT NULL DEFAULT 0,
   `session_last_visit` int(11) unsigned NOT NULL DEFAULT 0,
   `session_start` int(11) unsigned NOT NULL DEFAULT 0,
   `session_time` int(11) unsigned NOT NULL DEFAULT 0,
@@ -3074,7 +3210,7 @@ DROP TABLE IF EXISTS `phpbb_sessions_keys`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `phpbb_sessions_keys` (
   `key_id` char(32) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `user_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `user_id` int(10) unsigned NOT NULL DEFAULT 0,
   `last_ip` varchar(40) COLLATE utf8_bin NOT NULL DEFAULT '',
   `last_login` int(11) unsigned NOT NULL DEFAULT 0,
   PRIMARY KEY (`key_id`,`user_id`),
@@ -3126,7 +3262,7 @@ DROP TABLE IF EXISTS `phpbb_smilies`;
 CREATE TABLE `phpbb_smilies` (
   `smiley_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `code` varchar(50) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `emotion` varchar(50) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `emotion` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
   `smiley_url` varchar(50) COLLATE utf8_bin NOT NULL DEFAULT '',
   `smiley_width` smallint(4) unsigned NOT NULL DEFAULT 0,
   `smiley_height` smallint(4) unsigned NOT NULL DEFAULT 0,
@@ -3217,7 +3353,7 @@ CREATE TABLE `phpbb_styles` (
 LOCK TABLES `phpbb_styles` WRITE;
 /*!40000 ALTER TABLE `phpbb_styles` DISABLE KEYS */;
 INSERT INTO `phpbb_styles` VALUES
-  (1,'prosilver','&copy; phpBB Limited',1,'prosilver','kNg=',0,''),
+  (1,'prosilver','&copy; phpBB Limited',1,'prosilver','//g=',0,''),
   (2,'prosilver Special Edition','© phpBB Limited, 2008',1,'prosilver_se','+Ng=',1,'prosilver');
 /*!40000 ALTER TABLE `phpbb_styles` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -3259,29 +3395,29 @@ DROP TABLE IF EXISTS `phpbb_topics`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `phpbb_topics` (
-  `topic_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `topic_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `forum_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
   `icon_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
   `topic_attachment` tinyint(1) unsigned NOT NULL DEFAULT 0,
   `topic_reported` tinyint(1) unsigned NOT NULL DEFAULT 0,
   `topic_title` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `topic_poster` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `topic_poster` int(10) unsigned NOT NULL DEFAULT 0,
   `topic_time` int(11) unsigned NOT NULL DEFAULT 0,
   `topic_time_limit` int(11) unsigned NOT NULL DEFAULT 0,
   `topic_views` mediumint(8) unsigned NOT NULL DEFAULT 0,
   `topic_status` tinyint(3) NOT NULL DEFAULT 0,
   `topic_type` tinyint(3) NOT NULL DEFAULT 0,
-  `topic_first_post_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `topic_first_post_id` int(10) unsigned NOT NULL DEFAULT 0,
   `topic_first_poster_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `topic_first_poster_colour` varchar(6) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `topic_last_post_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
-  `topic_last_poster_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `topic_last_post_id` int(10) unsigned NOT NULL DEFAULT 0,
+  `topic_last_poster_id` int(10) unsigned NOT NULL DEFAULT 0,
   `topic_last_poster_name` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
   `topic_last_poster_colour` varchar(6) COLLATE utf8_bin NOT NULL DEFAULT '',
   `topic_last_post_subject` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
   `topic_last_post_time` int(11) unsigned NOT NULL DEFAULT 0,
   `topic_last_view_time` int(11) unsigned NOT NULL DEFAULT 0,
-  `topic_moved_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `topic_moved_id` int(10) unsigned NOT NULL DEFAULT 0,
   `topic_bumped` tinyint(1) unsigned NOT NULL DEFAULT 0,
   `topic_bumper` mediumint(8) unsigned NOT NULL DEFAULT 0,
   `poll_title` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
@@ -3293,7 +3429,7 @@ CREATE TABLE `phpbb_topics` (
   `topic_visibility` tinyint(3) NOT NULL DEFAULT 0,
   `topic_delete_time` int(11) unsigned NOT NULL DEFAULT 0,
   `topic_delete_reason` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `topic_delete_user` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `topic_delete_user` int(10) unsigned NOT NULL DEFAULT 0,
   `topic_posts_approved` mediumint(8) unsigned NOT NULL DEFAULT 0,
   `topic_posts_unapproved` mediumint(8) unsigned NOT NULL DEFAULT 0,
   `topic_posts_softdeleted` mediumint(8) unsigned NOT NULL DEFAULT 0,
@@ -3303,7 +3439,8 @@ CREATE TABLE `phpbb_topics` (
   KEY `last_post_time` (`topic_last_post_time`),
   KEY `fid_time_moved` (`forum_id`,`topic_last_post_time`,`topic_moved_id`),
   KEY `topic_visibility` (`topic_visibility`),
-  KEY `forum_vis_last` (`forum_id`,`topic_visibility`,`topic_last_post_id`)
+  KEY `forum_vis_last` (`forum_id`,`topic_visibility`,`topic_last_post_id`),
+  KEY `latest_topics` (`forum_id`,`topic_last_post_time`,`topic_last_post_id`,`topic_moved_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -3324,8 +3461,8 @@ DROP TABLE IF EXISTS `phpbb_topics_posted`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `phpbb_topics_posted` (
-  `user_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
-  `topic_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `user_id` int(10) unsigned NOT NULL DEFAULT 0,
+  `topic_id` int(10) unsigned NOT NULL DEFAULT 0,
   `topic_posted` tinyint(1) unsigned NOT NULL DEFAULT 0,
   PRIMARY KEY (`user_id`,`topic_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -3348,8 +3485,8 @@ DROP TABLE IF EXISTS `phpbb_topics_track`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `phpbb_topics_track` (
-  `user_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
-  `topic_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `user_id` int(10) unsigned NOT NULL DEFAULT 0,
+  `topic_id` int(10) unsigned NOT NULL DEFAULT 0,
   `forum_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
   `mark_time` int(11) unsigned NOT NULL DEFAULT 0,
   PRIMARY KEY (`user_id`,`topic_id`),
@@ -3375,8 +3512,8 @@ DROP TABLE IF EXISTS `phpbb_topics_watch`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `phpbb_topics_watch` (
-  `topic_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
-  `user_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `topic_id` int(10) unsigned NOT NULL DEFAULT 0,
+  `user_id` int(10) unsigned NOT NULL DEFAULT 0,
   `notify_status` tinyint(1) unsigned NOT NULL DEFAULT 0,
   KEY `topic_id` (`topic_id`),
   KEY `user_id` (`user_id`),
@@ -3402,7 +3539,7 @@ DROP TABLE IF EXISTS `phpbb_user_group`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `phpbb_user_group` (
   `group_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
-  `user_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `user_id` int(10) unsigned NOT NULL DEFAULT 0,
   `group_leader` tinyint(1) unsigned NOT NULL DEFAULT 0,
   `user_pending` tinyint(1) unsigned NOT NULL DEFAULT 1,
   KEY `group_id` (`group_id`),
@@ -3433,11 +3570,15 @@ DROP TABLE IF EXISTS `phpbb_user_notifications`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `phpbb_user_notifications` (
-  `item_type` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `item_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
-  `user_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
-  `method` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `notify` tinyint(1) unsigned NOT NULL DEFAULT 1
+  `item_type` varchar(165) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `item_id` int(10) unsigned NOT NULL DEFAULT 0,
+  `user_id` int(10) unsigned NOT NULL DEFAULT 0,
+  `method` varchar(165) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `notify` tinyint(1) unsigned NOT NULL DEFAULT 1,
+  UNIQUE KEY `itm_usr_mthd` (`item_type`,`item_id`,`user_id`,`method`),
+  KEY `user_id` (`user_id`),
+  KEY `uid_itm_id` (`user_id`,`item_id`),
+  KEY `usr_itm_tpe` (`user_id`,`item_type`,`item_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -3448,9 +3589,9 @@ CREATE TABLE `phpbb_user_notifications` (
 LOCK TABLES `phpbb_user_notifications` WRITE;
 /*!40000 ALTER TABLE `phpbb_user_notifications` DISABLE KEYS */;
 INSERT INTO `phpbb_user_notifications` VALUES
-  ('notification.type.post',0,2,'',1),
+  ('notification.type.post',0,2,'notification.method.board',1),
   ('notification.type.post',0,2,'notification.method.email',1),
-  ('notification.type.topic',0,2,'',1),
+  ('notification.type.topic',0,2,'notification.method.board',1),
   ('notification.type.topic',0,2,'notification.method.email',1);
 /*!40000 ALTER TABLE `phpbb_user_notifications` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -3463,7 +3604,7 @@ DROP TABLE IF EXISTS `phpbb_users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `phpbb_users` (
-  `user_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `user_type` tinyint(2) NOT NULL DEFAULT 0,
   `group_id` mediumint(8) unsigned NOT NULL DEFAULT 3,
   `user_permissions` mediumtext COLLATE utf8_bin NOT NULL,
@@ -3491,7 +3632,7 @@ CREATE TABLE `phpbb_users` (
   `user_posts` mediumint(8) unsigned NOT NULL DEFAULT 0,
   `user_lang` varchar(30) COLLATE utf8_bin NOT NULL DEFAULT '',
   `user_timezone` varchar(100) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `user_dateformat` varchar(30) COLLATE utf8_bin NOT NULL DEFAULT 'd M Y H:i',
+  `user_dateformat` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT 'd M Y H:i',
   `user_style` mediumint(8) unsigned NOT NULL DEFAULT 0,
   `user_rank` mediumint(8) unsigned NOT NULL DEFAULT 0,
   `user_colour` varchar(6) COLLATE utf8_bin NOT NULL DEFAULT '',
@@ -3558,9 +3699,9 @@ DROP TABLE IF EXISTS `phpbb_warnings`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `phpbb_warnings` (
   `warning_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
-  `post_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
-  `log_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `user_id` int(10) unsigned NOT NULL DEFAULT 0,
+  `post_id` int(10) unsigned NOT NULL DEFAULT 0,
+  `log_id` int(10) unsigned NOT NULL DEFAULT 0,
   `warning_time` int(11) unsigned NOT NULL DEFAULT 0,
   PRIMARY KEY (`warning_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -3583,7 +3724,7 @@ DROP TABLE IF EXISTS `phpbb_words`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `phpbb_words` (
-  `word_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `word_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `word` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
   `replacement` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
   PRIMARY KEY (`word_id`)
@@ -3607,8 +3748,8 @@ DROP TABLE IF EXISTS `phpbb_zebra`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `phpbb_zebra` (
-  `user_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
-  `zebra_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `user_id` int(10) unsigned NOT NULL DEFAULT 0,
+  `zebra_id` int(10) unsigned NOT NULL DEFAULT 0,
   `friend` tinyint(1) unsigned NOT NULL DEFAULT 0,
   `foe` tinyint(1) unsigned NOT NULL DEFAULT 0,
   PRIMARY KEY (`user_id`,`zebra_id`)
@@ -3633,4 +3774,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-11-11 20:50:23
+-- Dump completed on 2018-11-11 20:54:22
