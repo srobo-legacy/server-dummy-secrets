@@ -6304,8 +6304,8 @@ userPassword:: e1NIQX1KaWNITFBKcyswbXhpQUE4d2xBZEVxbXFpaTQ9
 
 # teachers, groups, sr
 dn: cn=teachers,ou=groups,o=sr
-objectClass: posixGroup
-cn: teachers
+changetype: modify
+replace: memberUid
 memberUid: aaa_mh1
 memberUid: aab_mk1
 memberUid: aac_mm1
@@ -6362,13 +6362,12 @@ memberUid: acb_nn1
 memberUid: acc_ol1
 memberUid: acd_mk1
 memberUid: ace_kl1
-description: teachers group
-gidNumber: 2005
+-
 
 # students, groups, sr
 dn: cn=students,ou=groups,o=sr
-objectClass: posixGroup
-cn: students
+changetype: modify
+replace: memberUid
 memberUid: aaa_mm1
 memberUid: aaa_no1
 memberUid: aaa_hh1
@@ -6723,8 +6722,7 @@ memberUid: ace_mi1
 memberUid: ace_oh1
 memberUid: ace_lm1
 memberUid: ace_mn1
-description: students group
-gidNumber: 2006
+-
 
 # college-1, groups, sr
 dn: cn=college-1,ou=groups,o=sr
@@ -8359,8 +8357,7 @@ gidNumber: 3116
 
 # ide-admin, groups, sr
 dn: cn=ide-admin,ou=groups,o=sr
-objectClass: posixGroup
-cn: ide-admin
+changetype: modify
+replace: memberUid
 memberUid: blueshirt
-description: ide-admin group
-gidNumber: 3118
+-
