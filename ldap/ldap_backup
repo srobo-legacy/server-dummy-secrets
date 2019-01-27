@@ -8355,9 +8355,38 @@ memberUid: ace_mn1
 description: team-ACE group
 gidNumber: 3116
 
+# withdrawn, groups, sr
+dn: cn=withdrawn,ou=groups,o=sr
+changetype: modify
+replace: memberUid
+memberUid: withdrawn_student
+-
+
 # ide-admin, groups, sr
 dn: cn=ide-admin,ou=groups,o=sr
 changetype: modify
 replace: memberUid
 memberUid: blueshirt
+-
+
+# mentors, groups, sr
+dn: cn=mentors,ou=groups,o=sr
+changetype: modify
+replace: memberUid
+memberUid: blueshirt
+memberUid: blueshirt-mcf
+-
+
+# media-consent, groups, sr
+dn: cn=media-consent,ou=groups,o=sr
+changetype: modify
+replace: memberUid
+memberUid: blueshirt
+-
+
+# media-consent-admin, groups, sr
+dn: cn=media-consent-admin,ou=groups,o=sr
+changetype: modify
+replace: memberUid
+memberUid: blueshirt-mcf
 -
