@@ -1040,6 +1040,13 @@ INSERT INTO `phpbb_config` VALUES
   ('enable_pm_icons','1',0),
   ('enable_post_confirm','1',0),
   ('enable_update_hashes','1',0),
+  ('entropy_botchannel','','0'),
+  ('entropy_botimg','','0'),
+  ('entropy_botnick','forum','0'),
+  ('entropy_vat','0','0'),
+  ('entropy_version','1.0.0','0'),
+  ('entropy_webhook','','0'),
+  ('extension_force_unstable','0','0'),
   ('extension_force_unstable','0',0),
   ('feed_enable','1',0),
   ('feed_forum','1',0),
@@ -1388,6 +1395,7 @@ LOCK TABLES `phpbb_ext` WRITE;
 INSERT INTO `phpbb_ext` VALUES
   ('sr/etc',1,'b:0;'),
   ('sr/pipebot',1,'b:0;');
+  ('TheH/entropy',1,'b:0;');
 /*!40000 ALTER TABLE `phpbb_ext` ENABLE KEYS */;
 UNLOCK TABLES;
 
