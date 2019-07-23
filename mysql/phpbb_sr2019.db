@@ -1046,7 +1046,6 @@ INSERT INTO `phpbb_config` VALUES
   ('entropy_vat','0','0'),
   ('entropy_version','1.0.0','0'),
   ('entropy_webhook','','0'),
-  ('extension_force_unstable','0','0'),
   ('extension_force_unstable','0',0),
   ('feed_enable','1',0),
   ('feed_forum','1',0),
