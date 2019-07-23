@@ -1393,7 +1393,7 @@ LOCK TABLES `phpbb_ext` WRITE;
 /*!40000 ALTER TABLE `phpbb_ext` DISABLE KEYS */;
 INSERT INTO `phpbb_ext` VALUES
   ('sr/etc',1,'b:0;'),
-  ('sr/pipebot',1,'b:0;');
+  ('sr/pipebot',1,'b:0;'),
   ('TheH/entropy',1,'b:0;');
 /*!40000 ALTER TABLE `phpbb_ext` ENABLE KEYS */;
 UNLOCK TABLES;
