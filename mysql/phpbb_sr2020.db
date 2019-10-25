@@ -1393,7 +1393,6 @@ LOCK TABLES `phpbb_ext` WRITE;
 /*!40000 ALTER TABLE `phpbb_ext` DISABLE KEYS */;
 INSERT INTO `phpbb_ext` VALUES
   ('sr/etc',1,'b:0;'),
-  ('sr/pipebot',1,'b:0;'),
   ('TheH/entropy',1,'b:0;');
 /*!40000 ALTER TABLE `phpbb_ext` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1879,7 +1878,8 @@ INSERT INTO `phpbb_log` VALUES
   (102,0,2,0,0,0,0,'127.0.0.1',1475417976,'LOG_PURGE_SESSIONS',''),
   (108,0,2,0,0,0,0,'127.0.0.1',1475420752,'LOG_CLEAR_ADMIN',''),
   (109,0,1,0,0,0,0,'127.0.0.1',1541969656,'LOG_MODULE_ADD','a:1:{i:0;s:18:\"Help support phpBB\";}'),
-  (110,0,1,0,0,0,0,'',1541969657,'LOG_UPDATE_DATABASE','a:2:{i:0;s:5:\"3.1.6\";i:1;s:5:\"3.2.3\";}');
+  (110,0,1,0,0,0,0,'',1541969657,'LOG_UPDATE_DATABASE','a:2:{i:0;s:5:\"3.1.6\";i:1;s:5:\"3.2.3\";}'),
+  (111,0,2,0,0,0,0,'127.0.0.1',1572028912,'LOG_EXT_DISABLE','a:1:{i:0;s:10:\"sr/pipebot\";}');
 /*!40000 ALTER TABLE `phpbb_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
